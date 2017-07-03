@@ -1,7 +1,9 @@
 package com.example.ilafedoseev.calculatorkotlin
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toolbar
@@ -62,17 +64,45 @@ class MainActivity : AppCompatActivity() {
         equals = findViewById(R.id.division) as Button
         dot = findViewById(R.id.dot) as Button
 
-        one.setOnClickListener {
-            displayNumber(1)
-            print("number one was pressing")
-        }
+        one.setOnClickListener { onClick }
+        two.setOnClickListener { onClick }
+        three.setOnClickListener { onClick }
+        four.setOnClickListener { onClick }
+        five.setOnClickListener { onClick }
+        six.setOnClickListener { onClick }
+        seven.setOnClickListener { onClick }
+        eight.setOnClickListener { onClick }
+        nine.setOnClickListener { onClick }
 
-        two.setOnClickListener {
-            displayNumber(2)
-            print("number two was pressing")
-        }
     }
 
+    val onClick = View.OnClickListener {
+        view -> when(view.getId()){
+        R.id.one -> displayNumber(1)
+        R.id.two -> displayNumber(2)
+        three.id -> displayNumber(3)
+        four.id -> displayNumber(4)
+        five.id -> displayNumber(5)
+        six.id -> displayNumber(6)
+        seven.id -> displayNumber(7)
+        eight.id -> displayNumber(8)
+        nine.id -> displayNumber(9)
+    }
+    }
+
+//     fun onClick(v: View){
+//        when(v.id){
+//            one.id -> displayNumber(1)
+//            two.id -> displayNumber(2)
+//            three.id -> displayNumber(3)
+//            four.id -> displayNumber(4)
+//            five.id -> displayNumber(5)
+//            six.id -> displayNumber(6)
+//            seven.id -> displayNumber(7)
+//            eight.id -> displayNumber(8)
+//            nine.id -> displayNumber(9)
+//        }
+//    }
 
     public fun setNumberToZero(){
         var zero = 0
@@ -83,8 +113,10 @@ class MainActivity : AppCompatActivity() {
     public fun displayNumber(num : Int){
         if (number.text.toString().equals("0")) {
             number.text = num.toString()
+            toast(num.toString() + " print ")
         } else {
             number.text = number.text.toString() + num.toString()
+            toast(num.toString() + " print ")
         }
     }
 
