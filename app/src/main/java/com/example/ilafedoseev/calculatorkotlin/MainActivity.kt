@@ -1,8 +1,11 @@
+@file:Suppress("UNUSED_EXPRESSION")
+
 package com.example.ilafedoseev.calculatorkotlin
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.annotation.IntegerRes
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -11,6 +14,7 @@ import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
+    private var res: Int = 0
     private lateinit var number: TextView
     private lateinit var oldNumbers: TextView
 
@@ -24,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var seven : Button
     private lateinit var eight : Button
     private lateinit var nine : Button
+    private lateinit var zero : Button
 
     // button actions [AC,+/-,%,-,+,*,/,=,.]
     private lateinit var deleteAll : Button
@@ -52,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         seven = findViewById(R.id.seven) as Button
         eight = findViewById(R.id.eighte) as Button
         nine = findViewById(R.id.nine) as Button
+        zero = findViewById(R.id.zero) as Button
 
 
         deleteAll = findViewById(R.id.delete_all) as Button
@@ -64,54 +70,41 @@ class MainActivity : AppCompatActivity() {
         equals = findViewById(R.id.division) as Button
         dot = findViewById(R.id.dot) as Button
 
-        one.setOnClickListener { onClick }
-        two.setOnClickListener { onClick }
-        three.setOnClickListener { onClick }
-        four.setOnClickListener { onClick }
-        five.setOnClickListener { onClick }
-        six.setOnClickListener { onClick }
-        seven.setOnClickListener { onClick }
-        eight.setOnClickListener { onClick }
-        nine.setOnClickListener { onClick }
+        one.setOnClickListener {displayNumber(1)}
+        two.setOnClickListener {displayNumber(2)}
+        three.setOnClickListener {displayNumber(3)}
+        four.setOnClickListener {displayNumber(4)}
+        five.setOnClickListener {displayNumber(5)}
+        six.setOnClickListener {displayNumber(6)}
+        seven.setOnClickListener {displayNumber(7)}
+        eight.setOnClickListener {displayNumber(8)}
+        nine.setOnClickListener {displayNumber(9)}
+        zero.setOnClickListener {displayNumber(0)}
+
+        plus.setOnClickListener {
+            addOldNumberRes()
+            number.text = number.text.toString() + " + "
+        }
+
+
+
 
     }
 
-    val onClick = View.OnClickListener {
-        view -> when(view.getId()){
-        R.id.one -> displayNumber(1)
-        R.id.two -> displayNumber(2)
-        three.id -> displayNumber(3)
-        four.id -> displayNumber(4)
-        five.id -> displayNumber(5)
-        six.id -> displayNumber(6)
-        seven.id -> displayNumber(7)
-        eight.id -> displayNumber(8)
-        nine.id -> displayNumber(9)
-    }
-    }
-
-//     fun onClick(v: View){
-//        when(v.id){
-//            one.id -> displayNumber(1)
-//            two.id -> displayNumber(2)
-//            three.id -> displayNumber(3)
-//            four.id -> displayNumber(4)
-//            five.id -> displayNumber(5)
-//            six.id -> displayNumber(6)
-//            seven.id -> displayNumber(7)
-//            eight.id -> displayNumber(8)
-//            nine.id -> displayNumber(9)
-//        }
-//    }
 
     public fun setNumberToZero(){
-        var zero = 0
+        val zero = 0
         number.text = zero.toString()
+    }
+
+    public fun addOldNumberRes(){
+        res = Integer.parseInt(number.text.toString());
+        oldNumbers.text = (Integer.parseInt(oldNumbers.text.toString()) + res).toString()
     }
 
     //number buttons
     public fun displayNumber(num : Int){
-        if (number.text.toString().equals("0")) {
+        if (number.text.toString() == "0") {
             number.text = num.toString()
             toast(num.toString() + " print ")
         } else {
@@ -122,8 +115,8 @@ class MainActivity : AppCompatActivity() {
 
     //methods buttons actions
     public fun actionMinus(){
-        var result : String = oldNumbers.text.toString() + number.text.toString()
-        oldNumbers.text = result + " - "
+        val res : String = oldNumbers.text.toString() + number.text.toString()
+        oldNumbers.text = res + " - "
         setNumberToZero()
 
     }
