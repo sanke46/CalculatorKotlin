@@ -53,26 +53,35 @@ class MainActivity : AppCompatActivity() {
         // define what action do
         var res : Int = 0
         var strToResult : String = makeArrayToStr(arrayExample)
-        var arrNumbers : List<String> = strToResult.split("+")
+        var arrNumbers : List<String>
 
+        //click equals -> change number to result
         arrayExample.forEach { token ->
             when {
-                token.equals("-") -> res = arrNumbers[0].toInt().minus(arrNumbers[1].toInt())
+                token.equals("-") -> {
+                     arrNumbers = strToResult.split("-")
+                    number.text = "${arrNumbers[0].toInt().minus(arrNumbers[1].toInt())}" }
                 token.equals("+") -> {
-                    number.text = "${arrNumbers[0].toInt().plus(arrNumbers[1].toInt())}"
-                }
-                token.equals("*") -> strToResult[0].minus(strToResult[1])
-                token.equals("/") -> strToResult[0].minus(strToResult[1])
+                    arrNumbers = strToResult.split("+")
+                    number.text = "${arrNumbers[0].toInt().plus(arrNumbers[1].toInt())}" }
+
+                token.equals("*") -> {
+                    arrNumbers = strToResult.split("*")
+                    number.text = "${arrNumbers[0].toInt().times(arrNumbers[1].toInt())}" }
+                token.equals("/") -> {
+                    arrNumbers = strToResult.split("/")
+                    number.text = "${arrNumbers[0].toInt().div(arrNumbers[1].toInt())}" }
             }
         }
 
-        toast(text = " $res")
-        println(res)
-
-
-        //click equals -> change number to result
         //clean array to empty
+        arrayExample.clear()
+
         // ann number of rusult to array
+        arrayExample.add(number.text.toString())
+
+
+
 
     }
 
