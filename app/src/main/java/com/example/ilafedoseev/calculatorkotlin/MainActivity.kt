@@ -12,71 +12,108 @@ import android.widget.TextView
 import android.widget.Toolbar
 import org.jetbrains.anko.toast
 import java.util.*
+import kotlinx.android.synthetic.main.activity_main.number
 
 class MainActivity : AppCompatActivity() {
 
-     var arrayExample : ArrayList<String> = ArrayList<String>()
+    var arrayExample : ArrayList<String> = ArrayList<String>()
+    var tokenList : ArrayList<String> = ArrayList<String>()
+    var resultNumeberOfCalc : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
 
-        //numbers [zero - nine]
-//        val one = findViewById(R.id.one) as Button
-//        var two = findViewById(R.id.two) as Button
-//        var three = findViewById(R.id.three) as Button
-//        var four = findViewById(R.id.four) as Button
-//        var five = findViewById(R.id.five) as Button
-//        var six = findViewById(R.id.six) as Button
-//        var seven = findViewById(R.id.seven) as Button
-//        var eight = findViewById(R.id.eighte) as Button
-//        var nine = findViewById(R.id.nine) as Button
-//        var zero = findViewById(R.id.zero) as Button
-//
-//        var deleteAll = findViewById(R.id.delete_all) as Button
-//        var plusMinus = findViewById(R.id.plus_minus) as Button
-//        var percent = findViewById(R.id.percent) as Button
-//        var minus = findViewById(R.id.minus) as Button
-//        var plus = findViewById(R.id.plus) as Button
-//        var multiplication = findViewById(R.id.multiplication) as Button
-//        var division = findViewById(R.id.division) as Button
-//        var equals = findViewById(R.id.division) as Button
-//        var dot = findViewById(R.id.dot) as Button
+    fun actionCalculation() {
+        //str to new array token
 
-//        actionCalculate = findViewById(R.id.number) as TextView
+
+        //display calc of "number"
+        for (s in arrayExample){
+
+        }
+    }
+
+    fun makeArrayToStr(arr: ArrayList<String>): String {
+        var str : StringBuilder = StringBuilder()
+
+        for (s in arr) {
+            str.append(s)
+        }
+
+        return str.toString()
+    }
+
+    fun clearAllNumbers(arr : ArrayList<String>) {
+        //clean array to empty
+    }
+
+    fun equalButtonDisplay(view: View) {
+        // define what action do
+        var res : Int = 0
+        var strToResult : String = makeArrayToStr(arrayExample)
+        var arrNumbers : List<String> = strToResult.split("+")
+
+        arrayExample.forEach { token ->
+            when {
+                token.equals("-") -> res = arrNumbers[0].toInt().minus(arrNumbers[1].toInt())
+                token.equals("+") -> {
+                    number.text = "${arrNumbers[0].toInt().plus(arrNumbers[1].toInt())}"
+                }
+                token.equals("*") -> strToResult[0].minus(strToResult[1])
+                token.equals("/") -> strToResult[0].minus(strToResult[1])
+            }
+        }
+
+        toast(text = " $res")
+        println(res)
+
+
+        //click equals -> change number to result
+        //clean array to empty
+        // ann number of rusult to array
 
     }
 
-    val res: Int = 0
+    fun calcButtonClick (view : View) {
+        //display calcButton to "number" view
+        var buttonCalc = view as Button
+        number.text = number.text.toString().plus(buttonCalc.text.toString())
 
-    fun displayActionCalculation() : String {
-        var actionNumbers : String = ""
-        arrayExample.forEach { action : String -> actionNumbers += action }
-        return actionNumbers
+        //add calcButton to array
+        arrayExample.add(buttonCalc.text.toString())
+        println(testArray(arrayExample))
     }
-
-    fun makeAllStr(list: List<String>,joiner: String = "") : String {
-         if (list.isEmpty()){
-             return ""
-         } else {
-             return list.reduce { acc, s ->acc + joiner + s }
-         }
-
-    }
-
-    fun displayCachCalculation(){}
-
-    fun actionOfCalculation(){}
 
     fun numberButtonClick(view: View){
-        val button = view as Button
-        val numberStr = button.text
+        //display number to "number" view
+        var buttonNumber = view as Button
 
-//      val cashCalculate = findViewById(R.id.old_numbers) as TextView
-        val actionCalculate = findViewById(R.id.number) as TextView
-        arrayExample.add(numberStr.toString())
-        var text = makeAllStr(arrayExample)
-        actionCalculate.text = text
+        //add click number to array
+        if(number.text.toString().equals("0")) {
+            number.text = buttonNumber.text.toString()
+            arrayExample.add(buttonNumber.text.toString())
+
+            toast("0 is zero")
+            println(testArray(arrayExample))
+        } else {
+            number.text = number.text.toString().plus(buttonNumber.text.toString())
+
+            arrayExample.add(buttonNumber.text.toString())
+            println(testArray(arrayExample))
+        }
+    }
+
+
+    fun testArray(arr: ArrayList<String>) : String {
+        var str :StringBuilder = StringBuilder()
+
+        for (s in arr){
+            str.append(s)
+        }
+
+        return str.toString()
 
     }
 
