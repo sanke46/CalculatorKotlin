@@ -11,114 +11,112 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toolbar
 import org.jetbrains.anko.toast
+import java.util.*
+import kotlinx.android.synthetic.main.activity_main.number
 
 class MainActivity : AppCompatActivity() {
 
-    private var res: Int = 0
-    private lateinit var number: TextView
-    private lateinit var oldNumbers: TextView
-
-    //numbers [zero - nine]
-    private lateinit var one : Button
-    private lateinit var two : Button
-    private lateinit var three : Button
-    private lateinit var four : Button
-    private lateinit var five : Button
-    private lateinit var six : Button
-    private lateinit var seven : Button
-    private lateinit var eight : Button
-    private lateinit var nine : Button
-    private lateinit var zero : Button
-
-    // button actions [AC,+/-,%,-,+,*,/,=,.]
-    private lateinit var deleteAll : Button
-    private lateinit var plusMinus : Button
-    private lateinit var percent : Button
-    private lateinit var minus : Button
-    private lateinit var plus : Button
-    private lateinit var multiplication : Button
-    private lateinit var division : Button
-    private lateinit var equals : Button
-    private lateinit var dot : Button
+    var arrayExample : ArrayList<String> = ArrayList<String>()
+    var tokenList : ArrayList<String> = ArrayList<String>()
+    var resultNumeberOfCalc : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
 
-        number = findViewById(R.id.number) as TextView
-        oldNumbers = findViewById(R.id.old_numbers) as TextView
+    fun actionCalculation() {
+        //str to new array token
 
-        one = findViewById(R.id.one) as Button
-        two = findViewById(R.id.two) as Button
-        three = findViewById(R.id.three) as Button
-        four = findViewById(R.id.four) as Button
-        five = findViewById(R.id.five) as Button
-        six = findViewById(R.id.six) as Button
-        seven = findViewById(R.id.seven) as Button
-        eight = findViewById(R.id.eighte) as Button
-        nine = findViewById(R.id.nine) as Button
-        zero = findViewById(R.id.zero) as Button
+        //display calc of "number"
+        for (s in arrayExample){
 
+        }
+    }
 
-        deleteAll = findViewById(R.id.delete_all) as Button
-        plusMinus = findViewById(R.id.plus_minus) as Button
-        percent = findViewById(R.id.percent) as Button
-        minus = findViewById(R.id.minus) as Button
-        plus = findViewById(R.id.plus) as Button
-        multiplication = findViewById(R.id.multiplication) as Button
-        division = findViewById(R.id.division) as Button
-        equals = findViewById(R.id.division) as Button
-        dot = findViewById(R.id.dot) as Button
+    fun makeArrayToStr(arr: ArrayList<String>): String {
+        var str : StringBuilder = StringBuilder()
 
-        one.setOnClickListener {displayNumber(1)}
-        two.setOnClickListener {displayNumber(2)}
-        three.setOnClickListener {displayNumber(3)}
-        four.setOnClickListener {displayNumber(4)}
-        five.setOnClickListener {displayNumber(5)}
-        six.setOnClickListener {displayNumber(6)}
-        seven.setOnClickListener {displayNumber(7)}
-        eight.setOnClickListener {displayNumber(8)}
-        nine.setOnClickListener {displayNumber(9)}
-        zero.setOnClickListener {displayNumber(0)}
-
-        plus.setOnClickListener {
-            addOldNumberRes()
-            number.text = number.text.toString() + " + "
+        for (s in arr) {
+            str.append(s)
         }
 
+        return str.toString()
+    }
 
+    fun clearAllNumbers(view: View) {
+        //clean array to empty
+        arrayExample.clear()
+        number.text = "0"
+    }
 
+    fun equalButtonDisplay(view: View) {
+        // define what action do
+        var res : Int = 0
+        var strToResult : String = makeArrayToStr(arrayExample)
+        var arrNumbers : List<String>
+
+        //click equals -> change number to result
+        arrayExample.forEach { token ->
+            when {
+                token.equals("-") -> {
+                     arrNumbers = strToResult.split("-")
+                    number.text = "${arrNumbers[0].toInt().minus(arrNumbers[1].toInt())}" }
+                token.equals("+") -> {
+                    arrNumbers = strToResult.split("+")
+                    number.text = "${arrNumbers[0].toInt().plus(arrNumbers[1].toInt())}" }
+
+                token.equals("*") -> {
+                    arrNumbers = strToResult.split("*")
+                    number.text = "${arrNumbers[0].toInt().times(arrNumbers[1].toInt())}" }
+                token.equals("/") -> {
+                    arrNumbers = strToResult.split("/")
+                    number.text = "${arrNumbers[0].toInt().div(arrNumbers[1].toInt())}" }
+            }
+        }
+
+        //clean array to empty
+        arrayExample.clear()
+
+        // ann number of rusult to array
+        arrayExample.add(number.text.toString())
 
     }
 
+    fun calcButtonClick (view : View) {
+        //display calcButton to "number" view
+        var buttonCalc = view as Button
+        number.text = number.text.toString().plus(buttonCalc.text.toString())
 
-    public fun setNumberToZero(){
-        val zero = 0
-        number.text = zero.toString()
+        //add calcButton to array
+        arrayExample.add(buttonCalc.text.toString())
+        println(testArray(arrayExample))
     }
 
-    public fun addOldNumberRes(){
-        res = Integer.parseInt(number.text.toString());
-        oldNumbers.text = (Integer.parseInt(oldNumbers.text.toString()) + res).toString()
-    }
+    fun numberButtonClick(view: View){
+        //display number to "number" view
+        var buttonNumber = view as Button
 
-    //number buttons
-    public fun displayNumber(num : Int){
-        if (number.text.toString() == "0") {
-            number.text = num.toString()
-            toast(num.toString() + " print ")
+        //add click number to array
+        if(number.text.toString().equals("0")) {
+            number.text = buttonNumber.text.toString()
+            arrayExample.add(buttonNumber.text.toString())
         } else {
-            number.text = number.text.toString() + num.toString()
-            toast(num.toString() + " print ")
+            number.text = number.text.toString().plus(buttonNumber.text.toString())
+            arrayExample.add(buttonNumber.text.toString())
         }
     }
 
-    //methods buttons actions
-    public fun actionMinus(){
-        val res : String = oldNumbers.text.toString() + number.text.toString()
-        oldNumbers.text = res + " - "
-        setNumberToZero()
 
+    fun testArray(arr: ArrayList<String>) : String {
+        var str :StringBuilder = StringBuilder()
+
+        for (s in arr){
+            str.append(s)
+        }
+
+        return str.toString()
     }
+
 
 }
