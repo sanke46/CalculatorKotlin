@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
     fun actionCalculation() {
         //str to new array token
 
-
         //display calc of "number"
         for (s in arrayExample){
 
@@ -45,8 +44,10 @@ class MainActivity : AppCompatActivity() {
         return str.toString()
     }
 
-    fun clearAllNumbers(arr : ArrayList<String>) {
+    fun clearAllNumbers(view: View) {
         //clean array to empty
+        arrayExample.clear()
+        number.text = "0"
     }
 
     fun equalButtonDisplay(view: View) {
@@ -80,9 +81,6 @@ class MainActivity : AppCompatActivity() {
         // ann number of rusult to array
         arrayExample.add(number.text.toString())
 
-
-
-
     }
 
     fun calcButtonClick (view : View) {
@@ -103,14 +101,9 @@ class MainActivity : AppCompatActivity() {
         if(number.text.toString().equals("0")) {
             number.text = buttonNumber.text.toString()
             arrayExample.add(buttonNumber.text.toString())
-
-            toast("0 is zero")
-            println(testArray(arrayExample))
         } else {
             number.text = number.text.toString().plus(buttonNumber.text.toString())
-
             arrayExample.add(buttonNumber.text.toString())
-            println(testArray(arrayExample))
         }
     }
 
@@ -123,7 +116,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         return str.toString()
-
     }
 
 
