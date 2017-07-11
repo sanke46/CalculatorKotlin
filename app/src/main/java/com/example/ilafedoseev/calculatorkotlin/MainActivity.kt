@@ -13,6 +13,7 @@ import android.widget.Toolbar
 import org.jetbrains.anko.toast
 import java.util.*
 import kotlinx.android.synthetic.main.activity_main.number
+import kotlinx.android.synthetic.main.activity_main.old_numbers
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         //clean array to empty
         arrayExample.clear()
         number.text = "0"
+        old_numbers.text = "0"
     }
 
     fun equalButtonDisplay(view: View) {
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 token.equals("-") -> {
                      arrNumbers = strToResult.split("-")
                     number.text = "${arrNumbers[0].toInt().minus(arrNumbers[1].toInt())}" }
+
                 token.equals("+") -> {
                     arrNumbers = strToResult.split("+")
                     number.text = "${arrNumbers[0].toInt().plus(arrNumbers[1].toInt())}" }
@@ -69,9 +72,16 @@ class MainActivity : AppCompatActivity() {
                 token.equals("*") -> {
                     arrNumbers = strToResult.split("*")
                     number.text = "${arrNumbers[0].toInt().times(arrNumbers[1].toInt())}" }
+
                 token.equals("/") -> {
                     arrNumbers = strToResult.split("/")
-                    number.text = "${arrNumbers[0].toInt().div(arrNumbers[1].toInt())}" }
+                    //divide by zero
+                    if (arrNumbers[1].toInt() == 0) {
+                        old_numbers.text = "Can't devide by 0"
+                    } else {
+                        number.text = "${ (arrNumbers[0].toDouble().div(arrNumbers[1].toDouble()))}"
+                    }
+                }
             }
         }
 
@@ -86,7 +96,16 @@ class MainActivity : AppCompatActivity() {
     fun calcButtonClick (view : View) {
         //display calcButton to "number" view
         var buttonCalc = view as Button
-        number.text = number.text.toString().plus(buttonCalc.text.toString())
+        // add only one symbol
+        if (arrayExample[arrayExample.size-1].equals("-") ||
+                arrayExample[arrayExample.size-1].equals("+") ||
+                arrayExample[arrayExample.size-1].equals("/") ||
+                arrayExample[arrayExample.size-1].equals("*")){
+            return
+        } else {
+            number.text = number.text.toString().plus(buttonCalc.text.toString())
+        }
+
 
         //add calcButton to array
         arrayExample.add(buttonCalc.text.toString())
@@ -97,15 +116,17 @@ class MainActivity : AppCompatActivity() {
         //display number to "number" view
         var buttonNumber = view as Button
 
+
         //add click number to array
-        if(number.text.toString().equals("0")) {
-            number.text = buttonNumber.text.toString()
-            arrayExample.add(buttonNumber.text.toString())
-        } else {
-            number.text = number.text.toString().plus(buttonNumber.text.toString())
-            arrayExample.add(buttonNumber.text.toString())
+
+            if (number.text.toString().equals("0")) {
+                number.text = buttonNumber.text.toString()
+                arrayExample.add(buttonNumber.text.toString())
+            } else {
+                number.text = number.text.toString().plus(buttonNumber.text.toString())
+                arrayExample.add(buttonNumber.text.toString())
+            }
         }
-    }
 
 
     fun testArray(arr: ArrayList<String>) : String {
@@ -116,6 +137,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         return str.toString()
+    }
+
+    fun pressPercent(view: View){
+        var procentResult = number.text.toString().toDouble().div(100)
+        number.text = procentResult.toString()
     }
 
 

@@ -35,18 +35,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="bottom"
-        >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/delete_all"
-            android:height="100sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35sp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -58,7 +51,7 @@
 
         <Button
             android:id="@+id/plus_minus"
-            android:height="100sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -69,18 +62,19 @@
 
         <Button
             android:id="@+id/percent"
-            android:height="100sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_selector"
             android:textColor="#ffffff"
+            android:onClick="pressPercent"
             android:text="%"/>
 
         <Button
             android:id="@+id/minus"
-            android:height="100sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -99,7 +93,7 @@
 
         <Button
             android:id="@+id/one"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -111,7 +105,7 @@
 
         <Button
             android:id="@+id/two"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -123,7 +117,7 @@
 
         <Button
             android:id="@+id/three"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -135,7 +129,7 @@
 
         <Button
             android:id="@+id/plus"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -154,7 +148,7 @@
 
         <Button
             android:id="@+id/four"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -166,7 +160,7 @@
 
         <Button
             android:id="@+id/five"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -178,7 +172,7 @@
 
         <Button
             android:id="@+id/six"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -190,7 +184,7 @@
 
         <Button
             android:id="@+id/multiplication"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -209,7 +203,7 @@
 
         <Button
             android:id="@+id/seven"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -221,7 +215,7 @@
 
         <Button
             android:id="@+id/eighte"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -233,7 +227,7 @@
 
         <Button
             android:id="@+id/nine"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -245,7 +239,7 @@
 
         <Button
             android:id="@+id/division"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -265,7 +259,6 @@
 
         <Button
             android:id="@+id/zero"
-            android:height="80sp"
             android:textSize="35dp"
             android:layout_weight=".67"
             android:layout_width="match_parent"
@@ -277,18 +270,19 @@
 
         <Button
             android:id="@+id/dot"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_selector"
             android:textColor="#ffffff"
+            android:onClick="numberButtonClick"
             android:text="."/>
 
         <Button
             android:id="@+id/equals"
-            android:height="80sp"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -300,4 +294,3 @@
 
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
