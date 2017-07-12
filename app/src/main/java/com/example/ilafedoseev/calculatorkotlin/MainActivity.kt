@@ -5,6 +5,7 @@ package com.example.ilafedoseev.calculatorkotlin
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.VibrationEffect
 import android.support.annotation.IntegerRes
 import android.view.View
 import android.widget.Button
@@ -17,8 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.old_numbers
 import java.text.DecimalFormat
 import android.util.TypedValue
 import android.widget.HorizontalScrollView
-
-
+import android.os.Vibrator
 
 
 
@@ -34,6 +34,19 @@ class MainActivity : AppCompatActivity() {
 
 //        val scrollView = findViewById(R.id.scroll) as HorizontalScrollView
 //        scrollView.postDelayed({ scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT) }, 10L)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        number.text = savedInstanceState.getString("number")
+        arrayExample = savedInstanceState.getStringArrayList("arrayExample")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putStringArrayList("arrayExample", arrayExample)
+        outState.putString("number", number.text.toString())
     }
 
     fun actionCalculation() {
@@ -169,7 +182,7 @@ class MainActivity : AppCompatActivity() {
             number.text = number.text.toString().plus(buttonCalc.text.toString())
         }
 
-
+        vibration()
         //add calcButton to array
         arrayExample.add(buttonCalc.text.toString())
         println(testArray(arrayExample))
@@ -177,9 +190,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun numberButtonClick(view: View){
+
         //display number to "number" view
         var buttonNumber = view as Button
-
 
         //add click number to array
             if (number.text.toString().equals("0")) {
@@ -189,7 +202,7 @@ class MainActivity : AppCompatActivity() {
                 number.text = number.text.toString().plus(buttonNumber.text.toString())
                 arrayExample.add(buttonNumber.text.toString())
             }
-
+            vibration()
             testSizeCalc()
         }
 
@@ -223,5 +236,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun vibration () {
+        val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        // Vibrate for 500 milliseconds
+        val vibrationPattern = longArrayOf(0, 15)
+        v.vibrate(vibrationPattern, -1);
+    }
 
 }
