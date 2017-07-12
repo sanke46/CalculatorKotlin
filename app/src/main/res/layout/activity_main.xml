@@ -8,17 +8,23 @@
     tools:context="com.example.ilafedoseev.calculatorkotlin.MainActivity"
     android:background="@drawable/gradient">
 
-    <TextView
-        android:id="@+id/number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp"
-        android:gravity="right"
-        android:textSize="75dp"
-        android:layout_marginRight="20dp"
-        android:textColor="#ffffff"
-        android:text="0"/>
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textSize="75dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit ="marquee_forever"
+            android:focusable="true"
+            android:scrollHorizontally="true"
+            android:textColor="#ffffff"
+            android:text="0"/>
+
 
     <TextView
         android:id="@+id/old_numbers"
@@ -259,6 +265,7 @@
 
         <Button
             android:id="@+id/zero"
+            android:height="@dimen/_80sdp"
             android:textSize="35dp"
             android:layout_weight=".67"
             android:layout_width="match_parent"
@@ -277,7 +284,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_selector"
             android:textColor="#ffffff"
-            android:onClick="numberButtonClick"
+            android:onClick="calcButtonClick"
             android:text="."/>
 
         <Button
