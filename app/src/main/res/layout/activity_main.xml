@@ -294,7 +294,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="equalButtonDisplay"
+            android:onClick="equalButtonDisplay3"
             android:background="@drawable/button_selector"
             android:textColor="#ffffff"
             android:text="="/>

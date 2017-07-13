@@ -192,13 +192,25 @@
                     android:text="0"/>
 
                 <Button
+                    android:id="@+id/dot"
+                    android:height="@dimen/_55sdp"
+                    android:textSize="35dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="calcButtonClick"
+                    android:background="@drawable/button_selector"
+                    android:textColor="#ffffff"
+                    android:text="."/>
+
+                <Button
                     android:id="@+id/equals"
                     android:height="@dimen/_55sdp"
                     android:textSize="35dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="equalButtonDisplay"
+                    android:onClick="equalButtonDisplay2"
                     android:background="@drawable/button_selector"
                     android:textColor="#ffffff"
                     android:text="="/>
@@ -257,6 +269,7 @@
                         android:onClick="calcButtonClick"
                         android:background="@drawable/button_selector"
                         android:textColor="#ffffff"
+                        android:textAllCaps="false"
                         android:text="sin"/>
                 </LinearLayout>
 
@@ -299,6 +312,7 @@
                         android:onClick="calcButtonClick"
                         android:background="@drawable/button_selector"
                         android:textColor="#ffffff"
+                        android:textAllCaps="false"
                         android:text="cos"/>
                 </LinearLayout>
 
@@ -341,6 +355,7 @@
                         android:onClick="calcButtonClick"
                         android:background="@drawable/button_selector"
                         android:textColor="#ffffff"
+                        android:textAllCaps="false"
                         android:text="tan"/>
                 </LinearLayout>
 
@@ -383,6 +398,7 @@
                         android:onClick="calcButtonClick"
                         android:background="@drawable/button_selector"
                         android:textColor="#ffffff"
+                        android:textAllCaps="false"
                         android:text="log"/>
 
                 </LinearLayout>
