@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.ilafedoseev.calculatorkotlin.MainActivity"
+    tools:context="com.example.ilafedoseev.calculatorkotlin.MainActivityK"
     android:background="@drawable/gradient">
 
 
@@ -294,7 +294,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="equalButtonDisplay3"
+            android:onClick="equalButtonDisplay"
             android:background="@drawable/button_selector"
             android:textColor="#ffffff"
             android:text="="/>

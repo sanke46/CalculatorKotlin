@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ilafedoseev.calculatorkotlin.MainActivity"
+    tools:context="com.example.ilafedoseev.calculatorkotlin.MainActivityK"
     android:background="@drawable/gradient"
     android:orientation="vertical">
 
@@ -210,7 +210,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="equalButtonDisplay2"
+                    android:onClick="equalButtonDisplay"
                     android:background="@drawable/button_selector"
                     android:textColor="#ffffff"
                     android:text="="/>
@@ -266,7 +266,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="calcButtonClick"
+                        android:onClick="function"
                         android:background="@drawable/button_selector"
                         android:textColor="#ffffff"
                         android:textAllCaps="false"
@@ -309,7 +309,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="calcButtonClick"
+                        android:onClick="function"
                         android:background="@drawable/button_selector"
                         android:textColor="#ffffff"
                         android:textAllCaps="false"
@@ -340,7 +340,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="calcButtonClick"
+                        android:onClick="fractarial"
                         android:background="@drawable/button_selector"
                         android:textColor="#ffffff"
                         android:text="!"/>
@@ -352,7 +352,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="calcButtonClick"
+                        android:onClick="function"
                         android:background="@drawable/button_selector"
                         android:textColor="#ffffff"
                         android:textAllCaps="false"
