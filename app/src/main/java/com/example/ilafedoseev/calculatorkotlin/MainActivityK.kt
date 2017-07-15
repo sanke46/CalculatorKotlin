@@ -29,6 +29,7 @@ class MainActivityK : AppCompatActivity() {
         // save instance
         number.text = savedInstanceState.getString("number")
         arrayExample = savedInstanceState.getStringArrayList("arrayExample")
+        old_numbers.text = savedInstanceState.getString("old_number")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -37,6 +38,7 @@ class MainActivityK : AppCompatActivity() {
         // save instance
         outState.putStringArrayList("arrayExample", arrayExample)
         outState.putString("number", number.text.toString())
+        outState.putString("old_number", old_numbers.text.toString())
     }
 
     /** Method to help convert array to String */
@@ -54,17 +56,21 @@ class MainActivityK : AppCompatActivity() {
 
     /** AC button */
     fun clearAllNumbers(view: View) {
-        //clean array to empty
-        arrayExample.clear()
+        //change "number" and "old_number"
         number.text = "0"
         old_numbers.text = "0"
+
+        //clean array to empty
+        arrayExample.clear()
         tokenList.clear()
+
+        // change size "number" to normal
         testSizeCalc()
     }
 
     /** Click equals */
     fun equalButtonDisplay(view: View) {
-
+        //check array empty
         if (arrayExample.size < 1) {
             return
         } else {
@@ -77,6 +83,8 @@ class MainActivityK : AppCompatActivity() {
     fun calcButtonClick (view : View) {
         //display calcButton to "number" view
         var buttonCalc = view as Button
+
+        //check equals number to 0
         if(number.text.toString().equals("0")){
             return
         } else {
@@ -117,14 +125,16 @@ class MainActivityK : AppCompatActivity() {
             arrayExample.add(buttonNumber.text.toString())
         }
 
-        // active vibration
+        //active vibration
         vibration()
-        // test needed to change size of number
+
+        //test needed to change size of number
         testSizeCalc()
     }
 
     /** Percent calc */
     fun pressPercent(view: View) {
+        calculate(arrayExample)
         var procentResult = number.text.toString().toDouble().div(100)
         // chance number to result
         number.text = procentResult.toString()
@@ -132,7 +142,9 @@ class MainActivityK : AppCompatActivity() {
         arrayExample.add(procentResult.toString())
     }
 
-    fun fractarial (view: View) {
+    /** Factorial */
+    fun fractorial (view: View) {
+        calculate(arrayExample)
         old_numbers.text = number.text.toString() +  "!"
         var result : Int = 1
 
@@ -146,7 +158,7 @@ class MainActivityK : AppCompatActivity() {
 
     }
 
-    /** sin, cos, tan function */
+    /** Function : sin, cos, tan  */
     fun function(view: View) {
         var button = view as Button
         when (button.text.toString()) {
@@ -161,124 +173,113 @@ class MainActivityK : AppCompatActivity() {
     /** Change size TextView */
     fun testSizeCalc() {
         //change  size number if length is high 8
-        if (number.text.toString().length > 8) {
-           number.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 65F)
-        }
-
-        //change  size number if length is high 12
-        if (number.text.toString().length > 12) {
-            number.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 55F)
-        }
-
-        //change  size number if length is high 1
-        if (number.text.toString().length < 1) {
-            number.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 75F)
-        }
+//        if (number.text.toString().length > 9) {
+//           number.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 65F)
+//        }
+//
+//        //change  size number if length is high 12
+//        if (number.text.toString().length > 12) {
+//            number.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 55F)
+//        }
+//
+//        //change  size number if length is high 1
+//        if (number.text.toString().length < 1) {
+//            number.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 75F)
+//        }
     }
 
-    /** vibration */
+    /** Vibration */
     fun vibration () {
         val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val vibrationPattern = longArrayOf(0, 15)
         v.vibrate(vibrationPattern, -1);
     }
 
-    /** division by zero */
+    /** Division by zero */
     fun failVibration () {
         val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val vibrationPattern = longArrayOf(0, 50, 100, 200)
         v.vibrate(vibrationPattern, -1);
     }
 
-    /** round the number */
+    /** Round the number */
     fun roundNumber (num: Double) : Double{
         return Math.round (num * 10000.0) / 10000.0;
     }
 
-    /** pow number */
+    /** Pow number */
     fun powNumber () : Double{
         var number =  number.text.toString()
         var splitNumber = number.split("^")
         return Math.pow(splitNumber[0].toDouble(),splitNumber[1].toDouble())
     }
 
-    /** calculate method */
+    /** Change number to minus and plus */
+    fun change(view: View){
+
+    }
+
+    /** Calculate method */
     fun calculate(arr: ArrayList<String>) {
         var currentOp: String = ""
-        var tokenListStr : String = makeArrayToStr(arr)
-        tokenList = tokenListStr.split(" ") as ArrayList<String>
+        var currentNumber : Double = 0.0
         var haveDot : Boolean = false
 
+        // sort to clean array
+        var tokenListStr : String = makeArrayToStr(arr)
+        tokenList = tokenListStr.split(" ") as ArrayList<String>
+
+        // check doe contains in array
         for (i in arrayExample) {
             if(i.contains(".")) {
                 haveDot = true
             }
         }
 
-        if (haveDot) {
-            var currentNumber : Double = 0.0
+        // loop to calculate
+        tokenList.forEach { token ->
+            when {
+                token.equals("+") || token.equals("/") || token.equals("*") || token.equals("-") || token.equals("^") -> currentOp = token
 
-            tokenList.forEach { token ->
-                when {
-                    token.equals("+") || token.equals("/") || token.equals("*") || token.equals("-") || token.equals("^") -> currentOp = token
-                    currentOp.equals("-") -> currentNumber -= token.toDouble()
-                    currentOp.equals("/") -> {
-                        if (token.equals("0")) {
-                            old_numbers.text = "Can't devide by 0"
-                        } else {
-                            currentNumber /= token.toInt()
-                        }
+                //minus
+                currentOp.equals("-") -> currentNumber -= token.toDouble()
+
+                //div
+                currentOp.equals("/") -> {
+                    if (token.equals("0")) {
+                        old_numbers.text = "Can't devide by 0"
+                        failVibration()
+                        return
+                    } else if (token.toDouble() > currentNumber) {
+                        currentNumber = currentNumber.div(token.toDouble())
+                    } else {
+                        currentNumber /= token.toInt()
                     }
-                    currentOp.equals("^") -> {
-                        for (i in 1..token.toInt()-1) {
-                            var num = currentNumber
-                            currentNumber *= num
-                        }
-                    }
-                    currentOp.equals("*") -> currentNumber *= token.toDouble()
-                    else -> currentNumber += token.toDouble()
                 }
+
+                //pow
+                currentOp.equals("^") -> {
+                    for (i in 1..token.toInt()-1) {
+                        var num = currentNumber
+                        currentNumber *= num
+                    }
+                }
+
+                //times
+                currentOp.equals("*") -> currentNumber *= token.toDouble()
+
+                //plus
+                else -> currentNumber += token.toDouble()
             }
-            // display result
+        }
+
+        // display result
+        if (currentNumber < 1) {
+            number.text = roundNumber(currentNumber).toString()
+        } else if (haveDot) {
             number.text = currentNumber.toString()
         } else {
-            var currentNumber : Double = 0
-
-            tokenList.forEach { token ->
-
-                when {
-                    token.equals("+") || token.equals("/") || token.equals("*") || token.equals("-") || token.equals("^") -> currentOp = token
-
-                    // minus
-                    currentOp.equals("-") -> currentNumber -= token.()
-                    // division
-                    currentOp.equals("/") -> {
-                        if (token.toInt() == 0) {
-                            old_numbers.text = "Can't devide by 0"
-                            failVibration()
-                            return
-                        } else if (token.toInt() > currentNumber) {
-                            currentNumber.toDouble() = currentNumber.toDouble().div(token.toDouble())
-                        } else {
-                            currentNumber /= token.toInt()
-                        }
-                    }
-                    // pow
-                    currentOp.equals("^") -> {
-                        for (i in 1..token.toInt()-1) {
-                            var num = currentNumber
-                            currentNumber *= num
-                        }
-                    }
-                    // times
-                    currentOp.equals("*") -> currentNumber *= token.toInt()
-                    else -> {
-                        currentNumber += token.toInt()
-                    }
-                }
-            }
-            // display result
-            number.text = currentNumber.toString()
+            number.text = currentNumber.toInt().toString()
         }
 
         //clean array to empty
