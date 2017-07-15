@@ -1,5 +1,5 @@
 <div style="text-align:center;">
-  <img src="http://eravodoley.ru/novayazemlya/img/header.png" alt="React Native Tutorial" />
+  <img src="http://eravodoley.ru/novayazemlya/img/header.png" alt="Calculator in Kotlin" />
 </div>
 
 # Calculator (Kotlin)
@@ -19,6 +19,6 @@ What new I have learned :
 # Example
 
 <div style="text-align:center;">
-  <img src="http://eravodoley.ru/novayazemlya/img/img2.png" alt="React Native Tutorial" />
+  <img src="http://eravodoley.ru/novayazemlya/img/img2.png" alt="Calculator app example" />
 </div>
 
