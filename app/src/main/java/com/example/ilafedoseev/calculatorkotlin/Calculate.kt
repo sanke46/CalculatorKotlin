@@ -40,7 +40,7 @@ class Calculate {
                     } else if (token.toDouble() > currentNumber) {
                         currentNumber = currentNumber.div(token.toDouble())
                     } else {
-                        currentNumber /= token.toInt()
+                        currentNumber /= token.toDouble()
                     }
                 }
 

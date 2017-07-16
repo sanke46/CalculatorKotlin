@@ -28,7 +28,7 @@ class MainActivityK : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
 
         // save instance
-        number.text = savedInstanceState.getString("number")
+        setNumberText(savedInstanceState.getString("number"))
         arrayExample = savedInstanceState.getStringArrayList("arrayExample")
         old_numbers.text = savedInstanceState.getString("old_number")
     }
@@ -45,7 +45,7 @@ class MainActivityK : AppCompatActivity() {
     /** AC button */
     fun clearAllNumbers(view: View) {
         //change "number" and "old_number"
-        number.text = "0"
+        setNumberText("0")
         old_numbers.text = "0"
         //clean array to empty
         arrayExample.clear()
@@ -61,7 +61,7 @@ class MainActivityK : AppCompatActivity() {
 
             //clean array to empty
             old_numbers.text = makeArrayToStr(arrayExample)
-            number.text = resultCalc
+            setNumberText(resultCalc)
 
             // remove all Strings in array
             arrayExample.clear()
@@ -89,7 +89,7 @@ class MainActivityK : AppCompatActivity() {
                     arrayExample[arrayExample.size - 1].equals(".")) {
                 return
             } else {
-                number.text = number.text.toString().plus(buttonCalc.text.toString())
+                setNumberText(number.text.toString().plus(buttonCalc.text.toString()))
             }
 
             // click vibration
@@ -110,10 +110,10 @@ class MainActivityK : AppCompatActivity() {
 
         //add click number to array
         if (number.text.toString().equals("0")) {
-            number.text = buttonNumberStr
+            setNumberText(buttonNumberStr)
             arrayExample.add(buttonNumberStr)
         } else {
-            number.text = number.text.toString().plus(buttonNumberStr)
+            setNumberText(number.text.toString().plus(buttonNumberStr))
             arrayExample.add(buttonNumberStr)
         }
 
@@ -127,7 +127,7 @@ class MainActivityK : AppCompatActivity() {
         calcul.calculate(arrayExample)
         var procentResult = number.text.toString().toDouble().div(100)
         // chance number to result
-        number.text = procentResult.toString()
+        setNumberText(procentResult.toString())
         arrayExample.clear()
         arrayExample.add(procentResult.toString())
     }
@@ -143,7 +143,7 @@ class MainActivityK : AppCompatActivity() {
         }
 
         arrayExample.clear()
-        number.text = result.toString()
+        setNumberText(result.toString())
         arrayExample.add(result.toString())
 
     }
@@ -154,9 +154,9 @@ class MainActivityK : AppCompatActivity() {
         var button = view as Button
         var numberText = number.text.toString().toDouble()
         when (button.text.toString()) {
-            "sin" -> number.text = roundNumber(Math.sin(numberText))
-            "cos" -> number.text = roundNumber(Math.cos(numberText))
-            "tan" -> number.text = roundNumber(Math.tan(numberText))
+            "sin" -> setNumberText(roundNumber(Math.sin(numberText)))
+            "cos" -> setNumberText(roundNumber(Math.cos(numberText)))
+            "tan" -> setNumberText(roundNumber(Math.tan(numberText)))
         }
         arrayExample.clear()
         arrayExample.add(number.text.toString())
@@ -184,6 +184,10 @@ class MainActivityK : AppCompatActivity() {
     /** Change number to minus and plus */
     fun change(view: View){
 
+    }
+
+    fun setNumberText(text : String) {
+        number.text = text
     }
 
     /** Method to help convert array to String */
