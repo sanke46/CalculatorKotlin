@@ -89,14 +89,15 @@ class MainActivityK : AppCompatActivity() {
                     arrayExample[arrayExample.size - 1].equals(".")) {
                 return
             } else {
-                setNumberText(number.text.toString().plus(buttonCalc.text.toString()))
+                arrayExample.add(buttonCalc.text.toString())
+                setNumberText(makeArrayToStr(arrayExample))
             }
 
             // click vibration
             vibration()
 
             //add calcButton to array
-            arrayExample.add(buttonCalc.text.toString())
+
 
         }
     }
@@ -110,11 +111,11 @@ class MainActivityK : AppCompatActivity() {
 
         //add click number to array
         if (number.text.toString().equals("0")) {
-            setNumberText(buttonNumberStr)
             arrayExample.add(buttonNumberStr)
+            setNumberText(makeArrayToStr(arrayExample))
         } else {
-            setNumberText(number.text.toString().plus(buttonNumberStr))
             arrayExample.add(buttonNumberStr)
+            setNumberText(makeArrayToStr(arrayExample))
         }
 
         //active vibration
@@ -133,7 +134,7 @@ class MainActivityK : AppCompatActivity() {
     }
 
     /** Factorial */
-    fun fractorial(view: View) {
+    fun factorial(view: View) {
         calcul.calculate(arrayExample)
         old_numbers.text = number.text.toString() +  "!"
         var result : Int = 1
@@ -182,12 +183,37 @@ class MainActivityK : AppCompatActivity() {
     }
 
     /** Change number to minus and plus */
-    fun change(view: View){
+    fun change(view: View) {
+        if (getNumberText() == "0") {
+            return
+        } else if(arrayExample[0] == "-"){
+            arrayExample.removeAt(0)
 
+        } else {
+            arrayExample.add(0,"-")
+        }
+
+        setNumberText(makeArrayToStr(arrayExample))
     }
 
+    /** log */
+    fun pressLog(view: View) {
+        old_numbers.text = "log(${getNumberText()})"
+        setNumberText(calcul.calculate(arrayExample))
+        setNumberText(roundNumber(Math.log(getNumberText().toDouble())))
+
+        arrayExample.clear()
+        arrayExample.add(getNumberText())
+    }
+
+    /** Change number text */
     fun setNumberText(text : String) {
         number.text = text
+    }
+
+    /** Get number text  */
+    fun getNumberText() : String {
+        return number.text.toString()
     }
 
     /** Method to help convert array to String */

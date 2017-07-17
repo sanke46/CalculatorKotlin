@@ -144,7 +144,7 @@ public class ExampleInstrumentedTest {
         arrayExample.add("2");
         arrayExample.add(".");
         arrayExample.add("1");
-        assertEquals("2.0", calculate.calculate(arrayExample));
+        assertEquals("2", calculate.calculate(arrayExample));
 
     }
 
@@ -162,6 +162,48 @@ public class ExampleInstrumentedTest {
 
     }
 
+    /** Minus Number */
+
+    @Test
+    public void TimesMinusNumberIntTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("-");
+        arrayExample.add("4");
+        arrayExample.add("*");
+        arrayExample.add("2");
+        assertEquals("-8", calculate.calculate(arrayExample));
+    }
+
+    @Test
+    public void MMinusNumberIntTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("-");
+        arrayExample.add("4");
+        arrayExample.add("-");
+        arrayExample.add("2");
+        assertEquals("-6", calculate.calculate(arrayExample));
+    }
+
+    @Test
+    public void PlusMinusNumberIntTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("-");
+        arrayExample.add("4");
+        arrayExample.add("+");
+        arrayExample.add("6");
+        assertEquals("2", calculate.calculate(arrayExample));
+    }
+
+    @Test
+    public void DivMinusNumberIntTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("-");
+        arrayExample.add("6");
+        arrayExample.add("/");
+        arrayExample.add("2");
+        assertEquals("-3", calculate.calculate(arrayExample));
+    }
+
     /** Zero test */
 
     @Test
@@ -172,7 +214,7 @@ public class ExampleInstrumentedTest {
         arrayExample.add("2");
         arrayExample.add("+");
         arrayExample.add("0");
-        assertEquals("4.2 ", calculate.calculate(arrayExample));
+        assertEquals("4.2", calculate.calculate(arrayExample));
     }
 
     @Test
@@ -194,7 +236,7 @@ public class ExampleInstrumentedTest {
         arrayExample.add("2");
         arrayExample.add("*");
         arrayExample.add("0");
-        assertEquals("0.0", calculate.calculate(arrayExample));
+        assertEquals("0", calculate.calculate(arrayExample));
     }
 
     @Test
@@ -205,7 +247,7 @@ public class ExampleInstrumentedTest {
         arrayExample.add("2");
         arrayExample.add("/");
         arrayExample.add("0");
-        assertEquals("0.0", calculate.calculate(arrayExample));
+        assertEquals("0", calculate.calculate(arrayExample));
     }
 
     @Test

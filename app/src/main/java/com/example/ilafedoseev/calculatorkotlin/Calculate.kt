@@ -16,6 +16,9 @@ class Calculate {
 
         // sort to clean array
         var tokenListStr: String = makeArrayToStr(arr)
+        if(tokenListStr[0].equals(" ")){
+            tokenListStr.replace(" ","")
+        }
         var tokenList: ArrayList<String> = tokenListStr.split(" ") as ArrayList<String>
 
         // check doe contains in array
@@ -56,15 +59,25 @@ class Calculate {
                 currentOp.equals("*") -> currentNumber *= token.toDouble()
 
             //plus
-                else -> currentNumber += token.toDouble()
+                else -> {
+                    if(token.equals("")){
+
+                    } else {
+                        currentNumber += token.toDouble()
+                    }
+                }
             }
         }
 
         // display result
-        if (currentNumber < 1) {
+        if (currentNumber > 0 && currentNumber < 1) {
             return roundNumber(currentNumber).toString()
         } else if (haveDot) {
-            return currentNumber.toString()
+            if(currentNumber % 1.0 == 0.0) {
+                return currentNumber.toInt().toString()
+            } else {
+                return currentNumber.toString()
+            }
         } else {
             return currentNumber.toInt().toString()
         }
