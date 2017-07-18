@@ -39,7 +39,7 @@ class Calculate {
             //div
                 currentOp.equals("/") -> {
                     if (token.equals("0")) {
-                        currentNumber = 0.0;
+                        currentNumber = 0.0
                     } else if (token.toDouble() > currentNumber) {
                         currentNumber = currentNumber.div(token.toDouble())
                     } else {
@@ -99,5 +99,17 @@ class Calculate {
     /** Round the number */
     fun roundNumber (num: Double) : Double {
         return Math.round (num * 10000.0) / 10000.0;
+    }
+
+    fun log(str : String): String {
+       return roundNumber(Math.log(str.toDouble())).toString()
+    }
+
+    fun functionIndecate(str : String) : String {
+        return roundNumber(Math.sin(str.toDouble())).toString()
+    }
+
+    fun percent(str : String) : String {
+        return (str.toDouble().div(100)).toString()
     }
 }

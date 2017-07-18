@@ -11,6 +11,7 @@ import java.util.*
 import android.util.TypedValue
 import android.os.Vibrator
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.toast
 import java.lang.Math.toDegrees
 
 class MainActivityK : AppCompatActivity() {
@@ -54,21 +55,26 @@ class MainActivityK : AppCompatActivity() {
     /** Click equals */
     fun equalButtonDisplay(view: View) {
         //check array empty
-        if (arrayExample.size < 1) {
+
+         if (arrayExample.size < 1) {
             return
         } else {
-            var resultCalc : String = calcul.calculate(arrayExample)
+            if(getNumberText().contains("/ 0")){
+                old_numbers.text = "Can't divide by 0"
+                failVibration()
+            } else {
+                var resultCalc: String = calcul.calculate(arrayExample)
 
-            //clean array to empty
-            old_numbers.text = makeArrayToStr(arrayExample)
-            setNumberText(resultCalc)
+                //clean array to empty
+                old_numbers.text = calcul.makeArrayToStr(arrayExample)
+                setNumberText(resultCalc)
 
-            // remove all Strings in array
-            arrayExample.clear()
+                // remove all Strings in array
+                arrayExample.clear()
 
-            // ann number of rusult to array
-            arrayExample.add(resultCalc)
-
+                // ann number of rusult to array
+                arrayExample.add(resultCalc)
+            }
         }
     }
 
@@ -83,22 +89,19 @@ class MainActivityK : AppCompatActivity() {
         } else {
             // add only one symbol
             if (arrayExample[arrayExample.size - 1].equals("-") ||
-                    arrayExample[arrayExample.size - 1].equals("+") ||
-                    arrayExample[arrayExample.size - 1].equals("/") ||
-                    arrayExample[arrayExample.size - 1].equals("*") ||
-                    arrayExample[arrayExample.size - 1].equals(".")) {
+                arrayExample[arrayExample.size - 1].equals("+") ||
+                arrayExample[arrayExample.size - 1].equals("/") ||
+                arrayExample[arrayExample.size - 1].equals("*") ||
+                arrayExample[arrayExample.size - 1].equals(".")) {
                 return
             } else {
                 arrayExample.add(buttonCalc.text.toString())
-                setNumberText(makeArrayToStr(arrayExample))
+                setNumberText(calcul.makeArrayToStr(arrayExample))
+
             }
 
             // click vibration
             vibration()
-
-            //add calcButton to array
-
-
         }
     }
 
@@ -112,10 +115,10 @@ class MainActivityK : AppCompatActivity() {
         //add click number to array
         if (number.text.toString().equals("0")) {
             arrayExample.add(buttonNumberStr)
-            setNumberText(makeArrayToStr(arrayExample))
+            setNumberText(calcul.makeArrayToStr(arrayExample))
         } else {
             arrayExample.add(buttonNumberStr)
-            setNumberText(makeArrayToStr(arrayExample))
+            setNumberText(calcul.makeArrayToStr(arrayExample))
         }
 
         //active vibration
@@ -126,11 +129,9 @@ class MainActivityK : AppCompatActivity() {
     /** Percent calc */
     fun pressPercent(view: View) {
         calcul.calculate(arrayExample)
-        var procentResult = number.text.toString().toDouble().div(100)
-        // chance number to result
-        setNumberText(procentResult.toString())
+        setNumberText(calcul.percent(getNumberText()))
         arrayExample.clear()
-        arrayExample.add(procentResult.toString())
+        arrayExample.add(calcul.percent(getNumberText()))
     }
 
     /** Factorial */
@@ -153,11 +154,10 @@ class MainActivityK : AppCompatActivity() {
     fun function(view: View) {
         calcul.calculate(arrayExample)
         var button = view as Button
-        var numberText = number.text.toString().toDouble()
         when (button.text.toString()) {
-            "sin" -> setNumberText(roundNumber(Math.sin(numberText)))
-            "cos" -> setNumberText(roundNumber(Math.cos(numberText)))
-            "tan" -> setNumberText(roundNumber(Math.tan(numberText)))
+            "sin" -> setNumberText(calcul.functionIndecate(getNumberText()))
+            "cos" -> setNumberText(calcul.functionIndecate(getNumberText()))
+            "tan" -> setNumberText(calcul.functionIndecate(getNumberText()))
         }
         arrayExample.clear()
         arrayExample.add(number.text.toString())
@@ -177,11 +177,6 @@ class MainActivityK : AppCompatActivity() {
         v.vibrate(vibrationPattern, -1);
     }
 
-    /** Round the number */
-    fun roundNumber(num: Double) : String {
-        return (Math.round (num * 10000.0) / 10000.0).toString()
-    }
-
     /** Change number to minus and plus */
     fun change(view: View) {
         if (getNumberText() == "0") {
@@ -192,15 +187,14 @@ class MainActivityK : AppCompatActivity() {
         } else {
             arrayExample.add(0,"-")
         }
-
-        setNumberText(makeArrayToStr(arrayExample))
+        setNumberText(calcul.makeArrayToStr(arrayExample))
     }
 
-    /** log */
+    /** Press button log */
     fun pressLog(view: View) {
         old_numbers.text = "log(${getNumberText()})"
         setNumberText(calcul.calculate(arrayExample))
-        setNumberText(roundNumber(Math.log(getNumberText().toDouble())))
+        setNumberText(calcul.log(getNumberText()))
 
         arrayExample.clear()
         arrayExample.add(getNumberText())
@@ -215,19 +209,5 @@ class MainActivityK : AppCompatActivity() {
     fun getNumberText() : String {
         return number.text.toString()
     }
-
-    /** Method to help convert array to String */
-    fun makeArrayToStr(arr: ArrayList<String>) : String {
-        var str : StringBuilder = StringBuilder()
-        for (s in arr) {
-            if(s.equals("-") || s.equals("+") || s.equals("/") || s.equals("*") || s.equals("^")){
-                str.append(" " + s + " ")
-            } else {
-                str.append(s)
-            }
-        }
-        return str.toString()
-    }
-
 
 }
