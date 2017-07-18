@@ -21,7 +21,6 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     private Calculate calculate = new Calculate();
-//    private MainActivityK mainActivityK = new MainActivityK();
 
     @Test
     public void useAppContext() throws Exception {
@@ -33,7 +32,7 @@ public class ExampleInstrumentedTest {
     /** Integer test */
 
     @Test
-    public void PlusIntTest() {
+    public void plusIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("2");
         arrayExample.add("+");
@@ -42,7 +41,15 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void PlusBigIntTest() {
+    public void halfIntTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("2");
+        arrayExample.add("+");
+        assertEquals("2", calculate.calculate(arrayExample));
+    }
+
+    @Test
+    public void plusBigIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("22");
         arrayExample.add("+");
@@ -51,7 +58,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void MinusIntTest() {
+    public void minusIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("3");
         arrayExample.add("-");
@@ -60,7 +67,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void MinusBigIntTest() {
+    public void minusBigIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("33");
         arrayExample.add("-");
@@ -69,7 +76,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void DivIntTest() {
+    public void divIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("4");
         arrayExample.add("/");
@@ -78,7 +85,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void DivBigIntTest() {
+    public void divBigIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("42");
         arrayExample.add("/");
@@ -87,7 +94,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void TimesIntTest() {
+    public void timesIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("4");
         arrayExample.add("*");
@@ -96,7 +103,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void TimesBigIntTest() {
+    public void timesBigIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("42");
         arrayExample.add("*");
@@ -108,7 +115,7 @@ public class ExampleInstrumentedTest {
     /** Double test */
 
     @Test
-    public void PlusDoubleTest() {
+    public void plusDoubleTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("2");
         arrayExample.add(".");
@@ -118,11 +125,20 @@ public class ExampleInstrumentedTest {
         arrayExample.add(".");
         arrayExample.add("1");
         assertEquals("5.2", calculate.calculate(arrayExample));
-
     }
 
     @Test
-    public void MinusDoubleTest() {
+    public void halfDoubleTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("2");
+        arrayExample.add(".");
+        arrayExample.add("1");
+        arrayExample.add("+");
+        assertEquals("2.1", calculate.calculate(arrayExample));
+    }
+
+    @Test
+    public void minusDoubleTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("3");
         arrayExample.add(".");
@@ -135,7 +151,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void DivDoubleTest() {
+    public void divDoubleTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("4");
         arrayExample.add(".");
@@ -149,7 +165,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void TimesDoubleTest() {
+    public void timesDoubleTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("4");
         arrayExample.add(".");
@@ -165,7 +181,7 @@ public class ExampleInstrumentedTest {
     /** Minus Number */
 
     @Test
-    public void TimesMinusNumberIntTest() {
+    public void timesMinusNumberIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("-");
         arrayExample.add("4");
@@ -175,7 +191,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void MMinusNumberIntTest() {
+    public void mMinusNumberIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("-");
         arrayExample.add("4");
@@ -185,7 +201,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void PlusMinusNumberIntTest() {
+    public void plusMinusNumberIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("-");
         arrayExample.add("4");
@@ -195,7 +211,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void DivMinusNumberIntTest() {
+    public void divMinusNumberIntTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("-");
         arrayExample.add("6");
@@ -207,7 +223,7 @@ public class ExampleInstrumentedTest {
     /** Zero test */
 
     @Test
-    public void PlusZeroDoubleTest() {
+    public void plusZeroDoubleTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("4");
         arrayExample.add(".");
@@ -218,7 +234,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void MinusZeroDoubleTest() {
+    public void minusZeroDoubleTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("4");
         arrayExample.add(".");
@@ -229,7 +245,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void TimesZeroDoubleTest() {
+    public void timesZeroDoubleTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("4");
         arrayExample.add(".");
@@ -239,19 +255,9 @@ public class ExampleInstrumentedTest {
         assertEquals("0", calculate.calculate(arrayExample));
     }
 
-    @Test
-    public void DivZeroDoubleTest() {
-        ArrayList<String> arrayExample = new ArrayList<String>();
-        arrayExample.add("4");
-        arrayExample.add(".");
-        arrayExample.add("2");
-        arrayExample.add("/");
-        arrayExample.add("0");
-        assertEquals("0", calculate.calculate(arrayExample));
-    }
 
     @Test
-    public void MinusZeroTest() {
+    public void minusZeroTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("4");
         arrayExample.add("-");
@@ -260,7 +266,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void PlusZeroTest() {
+    public void plusZeroTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("4");
         arrayExample.add("+");
@@ -269,20 +275,156 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void DivZeroTest() {
-        ArrayList<String> arrayExample = new ArrayList<String>();
-        arrayExample.add("4");
-        arrayExample.add("/");
-        arrayExample.add("0");
-        assertEquals("0", calculate.calculate(arrayExample));
-    }
-
-    @Test
-    public void TimesZeroTest() {
+    public void timesZeroTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("4");
         arrayExample.add("*");
         arrayExample.add("0");
         assertEquals("0", calculate.calculate(arrayExample));
+    }
+
+    /** other methods */
+
+    @Test
+    public void withCalculatelogTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        arrayExample.add("*");
+        arrayExample.add("2");
+        assertEquals("2.0794", calculate.log(calculate.calculate(arrayExample)));
+    }
+
+    @Test
+    public void withMultyCalculatelogTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        arrayExample.add("*");
+        arrayExample.add("2");
+        arrayExample.add("+");
+        arrayExample.add("2");
+        assertEquals("2.3026", calculate.log(calculate.calculate(arrayExample)));
+    }
+
+    @Test
+    public void halfCalculateLogTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        arrayExample.add("*");
+        assertEquals("1.3863", calculate.log(calculate.calculate(arrayExample)));
+    }
+
+    @Test
+    public void halfArrayLogTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        arrayExample.add("*");
+        assertEquals("1.3863", calculate.log(calculate.calculate(arrayExample)));
+    }
+
+    @Test
+    public void logTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        assertEquals("1.3863", calculate.log(calculate.calculate(arrayExample)));
+    }
+
+
+    @Test
+    public void sinTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        assertEquals("-0.7568", calculate.functionIndecate(calculate.calculate(arrayExample),"sin"));
+    }
+
+    @Test
+    public void multySinTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        arrayExample.add("*");
+        arrayExample.add("2");
+        assertEquals("0.9894", calculate.functionIndecate(calculate.calculate(arrayExample),"sin"));
+    }
+
+    @Test
+    public void halfArraySinTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        arrayExample.add("*");
+        assertEquals("-0.7568", calculate.functionIndecate(calculate.calculate(arrayExample),"sin"));
+    }
+
+
+    @Test
+    public void cosTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        assertEquals("-0.6536", calculate.functionIndecate(calculate.calculate(arrayExample),"cos"));
+    }
+
+    @Test
+    public void multyCosTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        arrayExample.add("*");
+        arrayExample.add("2");
+        assertEquals("-0.1455", calculate.functionIndecate(calculate.calculate(arrayExample),"cos"));
+    }
+
+    @Test
+    public void halfArrayCosTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        arrayExample.add("*");
+        assertEquals("-0.6536", calculate.functionIndecate(calculate.calculate(arrayExample),"cos"));
+    }
+
+
+    @Test
+    public void tanTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        assertEquals("1.1578", calculate.functionIndecate(calculate.calculate(arrayExample),"tan"));
+    }
+
+    @Test
+    public void multyTanTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        arrayExample.add("*");
+        arrayExample.add("2");
+        assertEquals("-6.7997", calculate.functionIndecate(calculate.calculate(arrayExample),"tan"));
+    }
+
+    @Test
+    public void halfArrayTanTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("4");
+        arrayExample.add("*");
+        assertEquals("1.1578", calculate.functionIndecate(calculate.calculate(arrayExample),"tan"));
+    }
+
+
+    @Test
+    public void percentTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("10");
+        assertEquals("0.1", calculate.percent(calculate.calculate(arrayExample)));
+    }
+
+    @Test
+    public void halfPercentTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("10");
+        arrayExample.add("+");
+        assertEquals("0.1", calculate.percent(calculate.calculate(arrayExample)));
+    }
+
+    @Test
+    public void plusPercentTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("10");
+        arrayExample.add("+");
+        arrayExample.add("10");
+        assertEquals("0.2", calculate.percent(calculate.calculate(arrayExample)));
     }
 }

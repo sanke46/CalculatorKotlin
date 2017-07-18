@@ -22,7 +22,6 @@ class MainActivityK : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -45,9 +44,11 @@ class MainActivityK : AppCompatActivity() {
 
     /** AC button */
     fun clearAllNumbers(view: View) {
+
         //change "number" and "old_number"
         setNumberText("0")
         old_numbers.text = "0"
+
         //clean array to empty
         arrayExample.clear()
     }
@@ -55,7 +56,6 @@ class MainActivityK : AppCompatActivity() {
     /** Click equals */
     fun equalButtonDisplay(view: View) {
         //check array empty
-
          if (arrayExample.size < 1) {
             return
         } else {
@@ -84,7 +84,7 @@ class MainActivityK : AppCompatActivity() {
         var buttonCalc = view as Button
 
         //check equals number to 0
-        if (number.text.toString().equals("0")) {
+        if (getNumberText().equals("0")) {
             return
         } else {
             // add only one symbol
@@ -97,7 +97,6 @@ class MainActivityK : AppCompatActivity() {
             } else {
                 arrayExample.add(buttonCalc.text.toString())
                 setNumberText(calcul.makeArrayToStr(arrayExample))
-
             }
 
             // click vibration
@@ -123,58 +122,85 @@ class MainActivityK : AppCompatActivity() {
 
         //active vibration
         vibration()
-
     }
 
     /** Percent calc */
     fun pressPercent(view: View) {
-        calcul.calculate(arrayExample)
-        setNumberText(calcul.percent(getNumberText()))
-        arrayExample.clear()
-        arrayExample.add(calcul.percent(getNumberText()))
+        if (arrayExample.size == 0 || calcul.makeArrayToStr(arrayExample).contains("/ 0")) {
+            // print error and vibration
+            old_numbers.text = "Error"
+            failVibration()
+        } else {
+            //print to result
+            setNumberText(calcul.percent(calcul.calculate(arrayExample)))
+            arrayExample.clear()
+            arrayExample.add(calcul.percent(getNumberText()))
+        }
     }
 
     /** Factorial */
     fun factorial(view: View) {
-        calcul.calculate(arrayExample)
-        old_numbers.text = number.text.toString() +  "!"
-        var result : Int = 1
+        // check full number and not empty array and div to zero
+        if(calcul.calculate(arrayExample).toDouble() % 1.0 != 0.0 || arrayExample.size == 0 || calcul.makeArrayToStr(arrayExample).contains("/ 0")) {
+            // print error and vibration
+            old_numbers.text = "Error"
+            failVibration()
+        } else {
+            //print to result
+            setNumberText(calcul.calculate(arrayExample))
+            old_numbers.text = getNumberText() + "!"
+            var result: Int = 1
 
-        for (i in 1..number.text.toString().toInt()) {
-            result *= i
+            for (i in 1..number.text.toString().toInt()) {
+                result *= i
+            }
+
+            arrayExample.clear()
+            setNumberText(result.toString())
+            arrayExample.add(result.toString())
         }
-
-        arrayExample.clear()
-        setNumberText(result.toString())
-        arrayExample.add(result.toString())
 
     }
 
     /** Function : sin, cos, tan  */
     fun function(view: View) {
-        calcul.calculate(arrayExample)
-        var button = view as Button
-        when (button.text.toString()) {
-            "sin" -> setNumberText(calcul.functionIndecate(getNumberText()))
-            "cos" -> setNumberText(calcul.functionIndecate(getNumberText()))
-            "tan" -> setNumberText(calcul.functionIndecate(getNumberText()))
+        if(arrayExample.size == 0 || calcul.makeArrayToStr(arrayExample).contains("/ 0")) {
+            // print error and vibration
+            old_numbers.text = "Error"
+            failVibration()
+        } else {
+            //print to result
+            setNumberText(calcul.calculate(arrayExample))
+            var button = view as Button
+
+            when(button.text.toString()) {
+                "sin" -> old_numbers.text = "sin(${getNumberText()})"
+                "cos" -> old_numbers.text = "cos(${getNumberText()})"
+                "tan" -> old_numbers.text = "tan(${getNumberText()})"
+            }
+
+            setNumberText(calcul.functionIndecate(getNumberText(), button.text.toString()))
+            arrayExample.clear()
+            arrayExample.add(number.text.toString())
         }
-        arrayExample.clear()
-        arrayExample.add(number.text.toString())
     }
 
-    /** Vibration */
-    fun vibration() {
-        val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        val vibrationPattern = longArrayOf(0, 15)
-        v.vibrate(vibrationPattern, -1);
-    }
+    /** Press button log */
+    fun pressLog(view: View) {
 
-    /** Error */
-    fun failVibration() {
-        val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        val vibrationPattern = longArrayOf(0, 50, 100, 200)
-        v.vibrate(vibrationPattern, -1);
+        if(arrayExample.size == 0 || calcul.makeArrayToStr(arrayExample).contains("/ 0")) {
+            // print error and vibration
+            old_numbers.text = "Error"
+            failVibration()
+        } else {
+            //print to result
+            old_numbers.text = "log(${getNumberText()})"
+            setNumberText(calcul.calculate(arrayExample))
+            setNumberText(calcul.log(getNumberText()))
+
+            arrayExample.clear()
+            arrayExample.add(getNumberText())
+        }
     }
 
     /** Change number to minus and plus */
@@ -190,16 +216,6 @@ class MainActivityK : AppCompatActivity() {
         setNumberText(calcul.makeArrayToStr(arrayExample))
     }
 
-    /** Press button log */
-    fun pressLog(view: View) {
-        old_numbers.text = "log(${getNumberText()})"
-        setNumberText(calcul.calculate(arrayExample))
-        setNumberText(calcul.log(getNumberText()))
-
-        arrayExample.clear()
-        arrayExample.add(getNumberText())
-    }
-
     /** Change number text */
     fun setNumberText(text : String) {
         number.text = text
@@ -208,6 +224,20 @@ class MainActivityK : AppCompatActivity() {
     /** Get number text  */
     fun getNumberText() : String {
         return number.text.toString()
+    }
+
+    /** Vibration */
+    fun vibration() {
+        val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val vibrationPattern = longArrayOf(0, 15)
+        v.vibrate(vibrationPattern, -1);
+    }
+
+    /** Error */
+    fun failVibration() {
+        val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val vibrationPattern = longArrayOf(0, 50, 100, 200)
+        v.vibrate(vibrationPattern, -1);
     }
 
 }
