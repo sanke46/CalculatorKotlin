@@ -12,6 +12,7 @@ What new I have learned :
 * How to write code use Kotlin 
 * Style code in XML
 * Land screen + scalable buttons
+* JUnit4 test
 
 # Built With
 * SDP - a scalable size unit : https://github.com/intuit/sdp
