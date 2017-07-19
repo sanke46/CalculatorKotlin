@@ -161,7 +161,6 @@ public class ExampleInstrumentedTest {
         arrayExample.add(".");
         arrayExample.add("1");
         assertEquals("2", calculate.calculate(arrayExample));
-
     }
 
     @Test
@@ -175,7 +174,6 @@ public class ExampleInstrumentedTest {
         arrayExample.add(".");
         arrayExample.add("1");
         assertEquals("8.82", calculate.calculate(arrayExample));
-
     }
 
     /** Minus Number */
@@ -254,7 +252,6 @@ public class ExampleInstrumentedTest {
         arrayExample.add("0");
         assertEquals("0", calculate.calculate(arrayExample));
     }
-
 
     @Test
     public void minusZeroTest() {
@@ -353,7 +350,6 @@ public class ExampleInstrumentedTest {
         assertEquals("-0.7568", calculate.functionIndecate(calculate.calculate(arrayExample),"sin"));
     }
 
-
     @Test
     public void cosTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
@@ -378,7 +374,6 @@ public class ExampleInstrumentedTest {
         assertEquals("-0.6536", calculate.functionIndecate(calculate.calculate(arrayExample),"cos"));
     }
 
-
     @Test
     public void tanTest() {
         ArrayList<String> arrayExample = new ArrayList<String>();
@@ -402,7 +397,6 @@ public class ExampleInstrumentedTest {
         arrayExample.add("*");
         assertEquals("1.1578", calculate.functionIndecate(calculate.calculate(arrayExample),"tan"));
     }
-
 
     @Test
     public void percentTest() {

@@ -28,7 +28,7 @@
 
 
     <TextView
-        android:id="@+id/old_numbers"
+        android:id="@+id/cacheNumber"
         android:fontFamily="sans-serif-light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="numberButtonClick"
+                    android:onClick="numberButton"
                     android:text="@string/_1"/>
 
                 <Button
@@ -70,7 +70,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="numberButtonClick"
+                    android:onClick="numberButton"
                     android:text="@string/_2"/>
 
                 <Button
@@ -79,7 +79,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="numberButtonClick"
+                    android:onClick="numberButton"
                     android:text="@string/_3"/>
                 </LinearLayout>
 
@@ -94,7 +94,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="numberButtonClick"
+                    android:onClick="numberButton"
                     android:text="@string/_4"/>
 
                 <Button
@@ -103,7 +103,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="numberButtonClick"
+                    android:onClick="numberButton"
                     android:text="@string/_5"/>
 
                 <Button
@@ -112,7 +112,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="numberButtonClick"
+                    android:onClick="numberButton"
                     android:text="@string/_6"/>
             </LinearLayout>
 
@@ -127,7 +127,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="numberButtonClick"
+                    android:onClick="numberButton"
                     android:text="@string/_7"/>
 
                 <Button
@@ -136,7 +136,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="numberButtonClick"
+                    android:onClick="numberButton"
                     android:text="@string/_8"/>
 
                 <Button
@@ -145,7 +145,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="numberButtonClick"
+                    android:onClick="numberButton"
                     android:text="@string/_9"/>
             </LinearLayout>
 
@@ -160,7 +160,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="numberButtonClick"
+                    android:onClick="numberButton"
                     android:text="@string/_0"/>
 
                 <Button
@@ -169,7 +169,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="calcButtonClick"
+                    android:onClick="mathSymbolButton"
                     android:text="@string/dot"/>
 
                 <Button
@@ -178,7 +178,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="equalButtonDisplay"
+                    android:onClick="equalButton"
                     android:text="@string/equals"/>
 
                 </LinearLayout>
@@ -207,7 +207,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="calcButtonClick"
+                        android:onClick="mathSymbolButton"
                         android:text="@string/slash"/>
 
                     <Button
@@ -216,7 +216,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="function"
+                        android:onClick="functionsButton"
                         android:text="@string/sin"/>
 
                     <Button
@@ -240,7 +240,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="calcButtonClick"
+                        android:onClick="mathSymbolButton"
                         android:text="@string/multiply"/>
 
                     <Button
@@ -249,7 +249,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="function"
+                        android:onClick="functionsButton"
                         android:text="@string/cos"/>
 
                     <Button
@@ -258,7 +258,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="pressPercent"
+                        android:onClick="percentButton"
                         android:textAllCaps="false"
                         android:text="@string/percent"/>
                 </LinearLayout>
@@ -274,7 +274,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="calcButtonClick"
+                        android:onClick="mathSymbolButton"
                         android:text="@string/minus"/>
 
                     <Button
@@ -283,7 +283,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="function"
+                        android:onClick="functionsButton"
                         android:text="@string/tan"/>
 
                     <Button
@@ -292,7 +292,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="factorial"
+                        android:onClick="factorialButton"
                         android:text="@string/factorial"/>
                 </LinearLayout>
 
@@ -307,7 +307,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="calcButtonClick"
+                        android:onClick="mathSymbolButton"
                         android:text="@string/plus"/>
 
                     <Button
@@ -316,7 +316,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="pressLog"
+                        android:onClick="logButton"
                         android:text="@string/log"/>
 
                     <Button
@@ -325,7 +325,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="calcButtonClick"
+                        android:onClick="mathSymbolButton"
                         android:text="@string/degree"/>
 
                 </LinearLayout>

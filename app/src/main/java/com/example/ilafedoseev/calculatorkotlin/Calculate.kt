@@ -1,6 +1,5 @@
 package com.example.ilafedoseev.calculatorkotlin
 
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 /**
@@ -8,21 +7,21 @@ import java.util.*
  */
 
 class Calculate {
+
     /** Calculate method */
     fun calculate(arr: ArrayList<String>) : String {
-        var currentOp: String = ""
-        var currentNumber: Double = 0.0
-        var haveDot: Boolean = false
-        var error: Boolean = true
+        var currentStr : String = ""
+        var currentNumber : Double = 0.0
+        var haveDot : Boolean = false
 
-        // sort to clean array
-        var tokenListStr: String = makeArrayToStr(arr)
-        if (tokenListStr[0].equals(" ")) {
-            tokenListStr.replace(" ", "")
+        var tokenStr : String = makeArrayToStr(arr)
+        if (tokenStr[0].equals(" ")) {
+            tokenStr.replace(" ", "")
         }
-        var tokenList: ArrayList<String> = tokenListStr.split(" ") as ArrayList<String>
 
-        // check doe contains in array
+        var tokenArrayList : ArrayList<String> = tokenStr.split(" ") as ArrayList<String>
+
+        // check dot contains in array
         for (i in arr) {
             if (i.contains(".")) {
                 haveDot = true
@@ -31,17 +30,15 @@ class Calculate {
 
 
         // loop to calculate
-        tokenList.forEach { token ->
+        tokenArrayList.forEach { token ->
             when {
-                token.equals("+") || token.equals("/") || token.equals("*") || token.equals("-") || token.equals("^") -> currentOp = token
+                token.equals("+") || token.equals("/") || token.equals("*") || token.equals("-") || token.equals("^") -> currentStr = token
 
-            //minus
-                currentOp.equals("-") -> {
+                currentStr.equals("-") -> {
                     if (!token.equals("")) {currentNumber -= token.toDouble()}
                 }
 
-            //div
-                currentOp.equals("/") -> {
+                currentStr.equals("/") -> {
                     if (token.equals("")) {
 
                     } else if (token.equals("0")) {
@@ -53,22 +50,19 @@ class Calculate {
                     }
                 }
 
-            //pow
-                currentOp.equals("^") -> {
+                currentStr.equals("^") -> {
                     for (i in 1..token.toInt() - 1) {
                         var num = currentNumber
                         currentNumber *= num
                     }
                 }
 
-            //times
-                currentOp.equals("*") ->{
+                currentStr.equals("*") ->{
                     if (!token.equals("")) {
                         currentNumber *= token.toDouble()
                     }
                 }
 
-            //plus
                 else -> {
                     if (!token.equals("")) {
                         currentNumber += token.toDouble()
@@ -92,7 +86,7 @@ class Calculate {
     }
 
     /** Method to help convert array to String */
-    fun makeArrayToStr(arr: ArrayList<String>) : String {
+    fun makeArrayToStr(arr : ArrayList<String>) : String {
         var str : StringBuilder = StringBuilder()
         for (s in arr) {
             if(s.equals("-") || s.equals("+") || s.equals("/") || s.equals("*") || s.equals("^")){
@@ -105,12 +99,12 @@ class Calculate {
     }
 
     /** Round the number */
-    fun roundNumber (num: Double) : Double {
+    fun roundNumber (num : Double) : Double {
         return Math.round (num * 10000.0) / 10000.0;
     }
 
     /** Log */
-    fun log(str : String): String {
+    fun log(str : String) : String {
        return roundNumber(Math.log(str.toDouble())).toString()
     }
 
