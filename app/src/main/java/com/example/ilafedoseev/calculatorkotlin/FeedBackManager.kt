@@ -10,6 +10,8 @@ import android.widget.TextView
  */
 class FeedBackManager  {
 
+    lateinit var context : Context
+
     fun canNotDoThat(textView: TextView, str : String) {
         textView.text = str
         errorVibration(context)
@@ -27,7 +29,7 @@ class FeedBackManager  {
 
     /** Vibration */
     private fun buttonVibration() {
-        val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val vibrationPattern = longArrayOf(0, 15)
         v.vibrate(vibrationPattern, -1)
     }
