@@ -2,23 +2,24 @@
 
 package com.example.ilafedoseev.calculatorkotlin
 
-import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
-import java.util.*
-import android.os.Vibrator
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivityK : AppCompatActivity() {
 
     var arrayExample : ArrayList<String> = ArrayList<String>()
-    var calculate : Calculate = Calculate()
+    val calculate : Calculate = Calculate()
+    val update : UpdateUI = UpdateUI()
+
 
     override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        var fb : FeedBackManager = FeedBackManager()
     }
 
     override fun onRestoreInstanceState(savedInstanceState : Bundle) {
@@ -36,74 +37,41 @@ class MainActivityK : AppCompatActivity() {
     }
 
     /** AC button */
-    fun clearAllNumbers(view : View) {
-        setNumberText("0")
-        cacheNumber.text = "0"
-        arrayExample.clear()
+    fun clearAllButton(view : View) {
+        update.clearAll(number,cacheNumber,arrayExample)
     }
 
     /** Click equals */
     fun equalButton(view : View) {
-         if (arrayExample.size < 1) {
-            return
-        } else {
-            if(getNumberText().contains("/ 0")){
-                cacheNumber.text = "Can't divide by 0"
-                ErrorVibration()
-            } else {
-                var resultCalculate: String = calculate.calculate(arrayExample)
-
-                cacheNumber.text = calculate.makeArrayToStr(arrayExample)
-                setNumberText(resultCalculate)
-
-                arrayExample.clear()
-                arrayExample.add(resultCalculate)
-            }
-        }
+        update.printResult(number,cacheNumber,arrayExample)
     }
 
     /** Click any Symbols */
     fun mathSymbolButton(view : View) {
-        var buttonCalculate = view as Button
-
-        if (getNumberText().equals("0")) {
-            return
-        } else {
-            // add only one symbol
-            if (arrayExample[arrayExample.size - 1].equals("-") ||
-                arrayExample[arrayExample.size - 1].equals("+") ||
-                arrayExample[arrayExample.size - 1].equals("/") ||
-                arrayExample[arrayExample.size - 1].equals("*") ||
-                arrayExample[arrayExample.size - 1].equals(".")) {
-                return
-            } else {
-                arrayExample.add(buttonCalculate.text.toString())
-                setNumberText(calculate.makeArrayToStr(arrayExample))
-            }
-            vibration()
-        }
+        val button = view as Button
+        update.addSymbols(button, number, arrayExample)
     }
 
     /** Click any number */
     fun numberButton(view : View) {
-        var buttonNumber = view as Button
-        var buttonNumberStr = buttonNumber.text.toString()
+        val buttonNumber = view as Button
+        val buttonNumberStr = buttonNumber.text.toString()
 
-        if (number.text.toString().equals("0")) {
+        if (number.text.toString() == "0") {
             arrayExample.add(buttonNumberStr)
             setNumberText(calculate.makeArrayToStr(arrayExample))
         } else {
             arrayExample.add(buttonNumberStr)
             setNumberText(calculate.makeArrayToStr(arrayExample))
         }
-        vibration()
+//        feedBackManager.vibration()
     }
 
     /** Percent calc */
     fun percentButton(view : View) {
         if (arrayExample.size == 0 || calculate.makeArrayToStr(arrayExample).contains("/ 0")) {
             cacheNumber.text = "Error"
-            ErrorVibration()
+//            feedBackManager.ErrorVibration()
         } else {
             setNumberText(calculate.percent(calculate.calculate(arrayExample)))
             arrayExample.clear()
@@ -115,7 +83,7 @@ class MainActivityK : AppCompatActivity() {
     fun factorialButton(view : View) {
         if(calculate.calculate(arrayExample).toDouble() % 1.0 != 0.0 || arrayExample.size == 0 || calculate.makeArrayToStr(arrayExample).contains("/ 0")) {
             cacheNumber.text = "Error"
-            ErrorVibration()
+//            feedBackManager.ErrorVibration()
         } else {
             setNumberText(calculate.calculate(arrayExample))
             cacheNumber.text = getNumberText() + "!"
@@ -135,7 +103,7 @@ class MainActivityK : AppCompatActivity() {
     fun functionsButton(view : View) {
         if(arrayExample.size == 0 || calculate.makeArrayToStr(arrayExample).contains("/ 0")) {
             cacheNumber.text = "Error"
-            ErrorVibration()
+//            feedBackManager.ErrorVibration()
         } else {
             setNumberText(calculate.calculate(arrayExample))
             var button = view as Button
@@ -155,8 +123,7 @@ class MainActivityK : AppCompatActivity() {
     /** Press button log */
     fun logButton(view : View) {
         if(arrayExample.size == 0 || calculate.makeArrayToStr(arrayExample).contains("/ 0")) {
-            cacheNumber.text = "Error"
-            ErrorVibration()
+
         } else {
             cacheNumber.text = "log(${getNumberText()})"
             setNumberText(calculate.calculate(arrayExample))
@@ -173,7 +140,6 @@ class MainActivityK : AppCompatActivity() {
             return
         } else if(arrayExample[0] == "-"){
             arrayExample.removeAt(0)
-
         } else {
             arrayExample.add(0,"-")
         }
@@ -188,20 +154,6 @@ class MainActivityK : AppCompatActivity() {
     /** Get number text  */
     fun getNumberText() : String {
         return number.text.toString()
-    }
-
-    /** Vibration */
-    fun vibration() {
-        val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        val vibrationPattern = longArrayOf(0, 15)
-        v.vibrate(vibrationPattern, -1);
-    }
-
-    /** Error */
-    fun ErrorVibration() {
-        val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        val vibrationPattern = longArrayOf(0, 50, 100, 200)
-        v.vibrate(vibrationPattern, -1);
     }
 
 }
