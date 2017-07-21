@@ -6,7 +6,7 @@ import java.util.*
  * Created by ilafedoseev on 16/07/2017.
  */
 
-class Calculate {
+class CalculateService {
 
     /** Calculate method */
     fun calculate(arr: ArrayList<String>) : String {

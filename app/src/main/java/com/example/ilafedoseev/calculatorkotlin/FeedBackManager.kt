@@ -15,21 +15,17 @@ class FeedBackManager {
         errorVibration(context)
     }
 
-    fun btnVibration(context: Context) {
-        buttonVibration(context)
-    }
-
     /** Vibration */
-    private fun buttonVibration(context: Context) {
-        val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    fun buttonVibration(context: Context) {
+        val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val vibrationPattern = longArrayOf(0, 15)
-        v.vibrate(vibrationPattern, -1)
+        vibrator.vibrate(vibrationPattern, -1)
     }
 
     /** Error */
     private fun errorVibration(context: Context){
-        var v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        var vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val vibrationPattern = longArrayOf(0, 50, 100, 200)
-        v.vibrate(vibrationPattern, -1)
+        vibrator.vibrate(vibrationPattern, -1)
     }
 }

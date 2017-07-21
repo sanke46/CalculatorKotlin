@@ -12,8 +12,8 @@ import java.util.*
 
 open class UpdateUI : Activity() {
 
-    val calculate : Calculate = Calculate()
-    var fbm : FeedBackManager = FeedBackManager()
+    val calculateService : CalculateService = CalculateService()
+    var feedBack: FeedBackManager = FeedBackManager()
 
     /** Get empty : array , TextView number, TextView cacheNumber */
     fun clearAll(number: TextView, cacheNumber: TextView, arr: ArrayList<String>) {
@@ -28,11 +28,11 @@ open class UpdateUI : Activity() {
             return
         } else {
             if(getText(number).contains("/ 0")){
-                fbm.canNotDoThat(cacheNumber,"Can't divide by 0", context)
+                feedBack.canNotDoThat(cacheNumber,"Can't divide by 0", context)
             } else {
-                val resultCalculate: String = calculate.calculate(arr)
+                val resultCalculate: String = calculateService.calculate(arr)
 
-                updateText(cacheNumber, calculate.makeArrayToStr(arr))
+                updateText(cacheNumber, calculateService.makeArrayToStr(arr))
                 updateText(number, resultCalculate)
 
                 arr.clear()
@@ -51,64 +51,64 @@ open class UpdateUI : Activity() {
                     arr[arr.size - 1].equals("*") ||
                     arr[arr.size - 1].equals(".")) {
             } else {
-                arr.add(getBtnText(button))
-                updateText(number,calculate.makeArrayToStr(arr))
+                arr.add(getButtonText(button))
+                updateText(number,calculateService.makeArrayToStr(arr))
             }
         }
-      fbm.btnVibration(context)
+      feedBack.buttonVibration(context)
     }
 
     /** Add text number to TextView number */
-    fun addNumber(button : Button, number: TextView, arr: ArrayList<String>,context: Context) {
-        val buttonNumberStr = getBtnText(button)
+    fun addNumber(button : Button, number: TextView, result: ArrayList<String>, context: Context) {
+        val buttonNumberStr = getButtonText(button)
 
         if (number.text.toString() == "0") {
-            arr.add(buttonNumberStr)
-            updateText(number,calculate.makeArrayToStr(arr))
+            result.add(buttonNumberStr)
+            updateText(number,calculateService.makeArrayToStr(result))
         } else {
-            arr.add(buttonNumberStr)
-            updateText(number,calculate.makeArrayToStr(arr))
+            result.add(buttonNumberStr)
+            updateText(number,calculateService.makeArrayToStr(result))
         }
-        fbm.btnVibration(context)
+        feedBack.buttonVibration(context)
     }
 
     /** Print percent result to TextView number and change TextView cacheNumber */
-    fun printPercent(number: TextView, cacheNumber: TextView, arr: ArrayList<String>, context: Context) {
-        if (arr.size == 0 || calculate.makeArrayToStr(arr).contains("/ 0")) {
-            fbm.canNotDoThat(cacheNumber,"Error", context)
+    fun printPercent(number: TextView, cacheNumber: TextView, result: ArrayList<String>, context: Context) {
+        if (result.size == 0 || calculateService.makeArrayToStr(result).contains("/ 0")) {
+            feedBack.canNotDoThat(cacheNumber,"Error", context)
         } else {
-            calculate.percent(calculate.calculate(arr))
-            arr.clear()
-            arr.add(calculate.percent(getText(number)))
+            calculateService.percent(calculateService.calculate(result))
+            result.clear()
+            result.add(calculateService.percent(getText(number)))
 
         }
     }
 
     /** Print factorial result to TextView number and change TextView cacheNumber */
-    fun printFactorial(number: TextView, cacheNumber: TextView, arr: ArrayList<String>, context: Context) {
-        if(calculate.calculate(arr).toDouble() % 1.0 != 0.0 || arr.size == 0 || calculate.makeArrayToStr(arr).contains("/ 0")) {
-            fbm.canNotDoThat(cacheNumber,"Error", context)
+    fun printFactorial(number: TextView, cacheNumber: TextView, result: ArrayList<String>, context: Context) {
+        if(calculateService.calculate(result).toDouble() % 1.0 != 0.0 || result.size == 0 || calculateService.makeArrayToStr(result).contains("/ 0")) {
+            feedBack.canNotDoThat(cacheNumber,"Error", context)
         } else {
-            updateText(number, calculate.calculate(arr))
+            updateText(number, calculateService.calculate(result))
             updateText(cacheNumber,getText(number) + "!")
-            var result: Int = 1
+            var resultFactorial: Int = 1
 
             for (i in 1..number.text.toString().toInt()) {
-                result *= i
+                resultFactorial *= i
             }
 
-            arr.clear()
-            updateText(number, result.toString())
-            arr.add(result.toString())
+            result.clear()
+            updateText(number, resultFactorial.toString())
+            result.add(resultFactorial.toString())
         }
     }
 
     /** Print function result to TextView number and change TextView cacheNumber */
-    fun printFunction(button: Button, number: TextView, cacheNumber: TextView, arr: ArrayList<String>, context: Context) {
-        if(arr.size == 0 || calculate.makeArrayToStr(arr).contains("/ 0")) {
-            fbm.canNotDoThat(cacheNumber,"Error", context)
+    fun printFunction(button: Button, number: TextView, cacheNumber: TextView, result: ArrayList<String>, context: Context) {
+        if(result.size == 0 || calculateService.makeArrayToStr(result).contains("/ 0")) {
+            feedBack.canNotDoThat(cacheNumber,"Error", context)
         } else {
-            updateText(number, calculate.calculate(arr))
+            updateText(number, calculateService.calculate(result))
 
             when(button.text.toString()) {
                 "sin" -> cacheNumber.text = "sin(${getText(number)})"
@@ -116,36 +116,36 @@ open class UpdateUI : Activity() {
                 "tan" -> cacheNumber.text = "tan(${getText(number)})"
             }
 
-            updateText(number,calculate.functionIndecate(getText(number), button.text.toString()))
-            arr.clear()
-            arr.add(number.text.toString())
+            updateText(number,calculateService.functionIndecate(getText(number), button.text.toString()))
+            result.clear()
+            result.add(number.text.toString())
         }
     }
 
     /** Print log result to TextView number and change TextView cacheNumber */
-    fun printLog(number: TextView, cacheNumber: TextView, arr: ArrayList<String>, context: Context) {
-        if(arr.size != 0 || !calculate.makeArrayToStr(arr).contains("/ 0")) {
-            fbm.canNotDoThat(cacheNumber,"Error", context)
+    fun printLog(number: TextView, cacheNumber: TextView, result: ArrayList<String>, context: Context) {
+        if(result.size != 0 || !calculateService.makeArrayToStr(result).contains("/ 0")) {
+            feedBack.canNotDoThat(cacheNumber,"Error", context)
         } else {
             cacheNumber.text = "log(${getText(number)})"
-            updateText(number, calculate.calculate(arr))
-            updateText(number, calculate.log(getText(number)))
+            updateText(number, calculateService.calculate(result))
+            updateText(number, calculateService.log(getText(number)))
 
-            arr.clear()
-            arr.add(getText(number))
+            result.clear()
+            result.add(getText(number))
         }
     }
 
     /** Change value of number */
-    fun printValueNumber(number: TextView, arr: ArrayList<String>) {
+    fun printValueNumber(number: TextView, result: ArrayList<String>) {
         if (getText(number) == "0") {
             return
-        } else if(arr[0] == "-"){
-            arr.removeAt(0)
+        } else if(result[0] == "-"){
+            result.removeAt(0)
         } else {
-            arr.add(0,"-")
+            result.add(0,"-")
         }
-        updateText(number, calculate.makeArrayToStr(arr))
+        updateText(number, calculateService.makeArrayToStr(result))
     }
 
     /** Set TextView */
@@ -159,7 +159,7 @@ open class UpdateUI : Activity() {
     }
 
     /** Get text of Button */
-    private fun getBtnText(btn: Button) : String {
-        return btn.text.toString()
+    private fun getButtonText(button: Button) : String {
+        return button.text.toString()
     }
 }
