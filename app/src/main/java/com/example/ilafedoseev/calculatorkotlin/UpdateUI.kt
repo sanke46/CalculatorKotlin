@@ -80,6 +80,7 @@ open class UpdateUI : Activity() {
             calculate.percent(calculate.calculate(arr))
             arr.clear()
             arr.add(calculate.percent(getText(number)))
+
         }
     }
 

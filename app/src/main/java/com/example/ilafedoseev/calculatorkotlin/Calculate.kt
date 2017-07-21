@@ -100,7 +100,7 @@ class Calculate {
 
     /** Round the number */
     fun roundNumber (num : Double) : Double {
-        return Math.round (num * 10000.0) / 10000.0;
+        return Math.round (num * 10000.0) / 10000.0
     }
 
     /** Log */

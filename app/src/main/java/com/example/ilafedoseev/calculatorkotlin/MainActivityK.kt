@@ -11,7 +11,7 @@ import java.util.*
 
 class MainActivityK : AppCompatActivity() {
 
-    var arrayExample : ArrayList<String> = ArrayList<String>()
+    var arrayNumbers : ArrayList<String> = ArrayList<String>()
     val update : UpdateUI = UpdateUI()
 
     override fun onCreate(savedInstanceState : Bundle?) {
@@ -22,62 +22,62 @@ class MainActivityK : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState : Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         number.text = savedInstanceState.getString("number")
-        arrayExample = savedInstanceState.getStringArrayList("arrayExample")
+        arrayNumbers = savedInstanceState.getStringArrayList("arrayExample")
         cacheNumber.text = savedInstanceState.getString("cacheNumber")
     }
 
     override fun onSaveInstanceState(outState : Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putStringArrayList("arrayExample", arrayExample)
+        outState.putStringArrayList("arrayExample", arrayNumbers)
         outState.putString("number", number.text.toString())
         outState.putString("cacheNumber", cacheNumber.text.toString())
     }
 
     /** AC button */
     fun clearAllButton(view : View) {
-        update.clearAll(number,cacheNumber,arrayExample)
+        update.clearAll(number,cacheNumber,arrayNumbers)
     }
 
     /** Click equals */
     fun equalButton(view : View) {
-        update.printResult(number,cacheNumber,arrayExample,this)
+        update.printResult(number,cacheNumber,arrayNumbers,this)
     }
 
     /** Click any Symbols */
     fun mathSymbolButton(view : View) {
         val button = view as Button
-        update.addSymbols(button, number, arrayExample,this)
+        update.addSymbols(button, number, arrayNumbers,this)
     }
 
     /** Click any number */
     fun numberButton(view : View) {
         val buttonNumber = view as Button
-        update.addNumber(buttonNumber,number,arrayExample,this)
+        update.addNumber(buttonNumber,number,arrayNumbers,this)
     }
 
     /** Percent calc */
     fun percentButton(view : View) {
-        update.printPercent(number,cacheNumber,arrayExample,this)
+        update.printPercent(number,cacheNumber,arrayNumbers,this)
     }
 
     /** Factorial */
     fun factorialButton(view : View) {
-        update.printFactorial(number,cacheNumber,arrayExample,this)
+        update.printFactorial(number,cacheNumber,arrayNumbers,this)
     }
 
     /** Function : sin, cos, tan  */
     fun functionsButton(view : View) {
         val button = view as Button
-        update.printFunction(button, number, cacheNumber,arrayExample,this)
+        update.printFunction(button, number, cacheNumber,arrayNumbers,this)
     }
 
     /** Press button log */
     fun logButton(view : View) {
-        update.printLog(number,cacheNumber,arrayExample,this)
+        update.printLog(number,cacheNumber,arrayNumbers,this)
     }
 
     /** Change number to minus and plus */
     fun changeValueButton(view : View) {
-        update.printValueNumber(number,arrayExample)
+        update.printValueNumber(number,arrayNumbers)
     }
 }
