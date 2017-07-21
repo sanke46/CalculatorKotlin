@@ -30,42 +30,42 @@ class Calculate {
 
 
         // loop to calculate
-        tokenArrayList.forEach { token ->
+        tokenArrayList.forEach {
             when {
-                token.equals("+") || token.equals("/") || token.equals("*") || token.equals("-") || token.equals("^") -> currentStr = token
+                it == "+" || it == "/" || it == "*" || it == "-" || it == "^" -> currentStr = it
 
-                currentStr.equals("-") -> {
-                    if (!token.equals("")) {currentNumber -= token.toDouble()}
+                currentStr == "-" -> {
+                    if (it != "") {currentNumber -= it.toDouble()}
                 }
 
-                currentStr.equals("/") -> {
-                    if (token.equals("")) {
-
-                    } else if (token.equals("0")) {
+                currentStr == "/" -> {
+                    if (it == "") {
+                        currentNumber += 0
+                    } else if (it == "0") {
                         currentNumber = 0.0
-                    } else if (token.toDouble() > currentNumber) {
-                        currentNumber = currentNumber.div(token.toDouble())
+                    } else if (it.toDouble() > currentNumber) {
+                        currentNumber = currentNumber.div(it.toDouble())
                     } else {
-                        currentNumber /= token.toDouble()
+                        currentNumber /= it.toDouble()
                     }
                 }
 
-                currentStr.equals("^") -> {
-                    for (i in 1..token.toInt() - 1) {
+                currentStr == "^" -> {
+                    for (i in 1..it.toInt() - 1) {
                         var num = currentNumber
                         currentNumber *= num
                     }
                 }
 
-                currentStr.equals("*") ->{
-                    if (!token.equals("")) {
-                        currentNumber *= token.toDouble()
+                currentStr == "*" ->{
+                    if (it != "") {
+                        currentNumber *= it.toDouble()
                     }
                 }
 
                 else -> {
-                    if (!token.equals("")) {
-                        currentNumber += token.toDouble()
+                    if (!it.equals("")) {
+                        currentNumber += it.toDouble()
                     }
                 }
             }
@@ -87,9 +87,9 @@ class Calculate {
 
     /** Method to help convert array to String */
     fun makeArrayToStr(arr : ArrayList<String>) : String {
-        var str : StringBuilder = StringBuilder()
+        val str : StringBuilder = StringBuilder()
         for (s in arr) {
-            if(s.equals("-") || s.equals("+") || s.equals("/") || s.equals("*") || s.equals("^")){
+            if(s == "-" || s == "+" || s == "/" || s == "*" || s == "^"){
                 str.append(" " + s + " ")
             } else {
                 str.append(s)

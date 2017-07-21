@@ -8,27 +8,19 @@ import android.widget.TextView
 /**
  * Created by ilafedoseev on 19/07/2017.
  */
-class FeedBackManager  {
+class FeedBackManager {
 
-    lateinit var context : Context
-
-    fun canNotDoThat(textView: TextView, str : String) {
+    fun canNotDoThat(textView: TextView, str : String,context: Context) {
         textView.text = str
         errorVibration(context)
     }
 
-    fun btnVibration() {
-        vibratePhone(context)
-    }
-
-    fun vibratePhone(context: Context) {
-        val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        val vibrationPattern = longArrayOf(0, 15)
-        vibrator.vibrate(vibrationPattern, -1)
+    fun btnVibration(context: Context) {
+        buttonVibration(context)
     }
 
     /** Vibration */
-    private fun buttonVibration() {
+    private fun buttonVibration(context: Context) {
         val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val vibrationPattern = longArrayOf(0, 15)
         v.vibrate(vibrationPattern, -1)
