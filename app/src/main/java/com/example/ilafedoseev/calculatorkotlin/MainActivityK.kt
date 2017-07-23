@@ -11,8 +11,8 @@ import java.util.*
 
 class MainActivityK : AppCompatActivity() {
 
-    var arrayNumbers : ArrayList<String> = ArrayList<String>()
-    val update : UpdateUI = UpdateUI()
+    private var arrayNumbers : ArrayList<String> = ArrayList<String>()
+    private var update : UpdateUI = UpdateUI()
 
     override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class MainActivityK : AppCompatActivity() {
 
     /** AC button */
     fun clearAllButton(view : View) {
-        update.clearAll(number,cacheNumber,arrayNumbers)
+       update.clearAll(number,cacheNumber,arrayNumbers)
     }
 
     /** Click equals */

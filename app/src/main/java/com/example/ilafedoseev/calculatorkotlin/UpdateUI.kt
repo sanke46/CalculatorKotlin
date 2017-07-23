@@ -12,25 +12,23 @@ import java.util.*
 
 open class UpdateUI : Activity() {
 
-    val calculateService : CalculateService = CalculateService()
-    var feedBack: FeedBackManager = FeedBackManager()
+    private var calculateService : CalculateService = CalculateService()
+    private var feedBack: FeedBackManager = FeedBackManager()
 
     /** Get empty : array , TextView number, TextView cacheNumber */
-    fun clearAll(number: TextView, cacheNumber: TextView, arr: ArrayList<String>) {
+    fun clearAll(number: TextView, cacheNumber: TextView, arr: ArrayList<String>){
         number.text = "0"
         cacheNumber.text ="0"
         arr.clear()
     }
 
     /** Print result to TextView Number and change TextView cacheNumber */
-    fun printResult(number: TextView, cacheNumber: TextView, arr: ArrayList<String>, context: Context) {
-        if (arr.size < 1) {
-            return
-        } else {
+    fun printResult(number: TextView, cacheNumber: TextView, arr: ArrayList<String>, context: Context)  {
+        if (arr.size > 1) {
             if(getText(number).contains("/ 0")){
                 feedBack.canNotDoThat(cacheNumber,"Can't divide by 0", context)
             } else {
-                val resultCalculate: String = calculateService.calculate(arr)
+                var resultCalculate: String = calculateService.calculate(arr)
 
                 updateText(cacheNumber, calculateService.makeArrayToStr(arr))
                 updateText(number, resultCalculate)
@@ -45,24 +43,29 @@ open class UpdateUI : Activity() {
     fun addSymbols(button : Button, number: TextView, arr: ArrayList<String>, context: Context) {
         if (getText(number) != "0") {
             // add only one symbol
-            if (arr[arr.size - 1].equals("-") ||
-                    arr[arr.size - 1].equals("+") ||
-                    arr[arr.size - 1].equals("/") ||
-                    arr[arr.size - 1].equals("*") ||
-                    arr[arr.size - 1].equals(".")) {
+            if (arr[arr.size - 1] == "-" ||
+                    arr[arr.size - 1] == "+" ||
+                    arr[arr.size - 1] == "/" ||
+                    arr[arr.size - 1] == "*" ||
+                    arr[arr.size - 1] == ".") {
             } else {
                 arr.add(getButtonText(button))
                 updateText(number,calculateService.makeArrayToStr(arr))
             }
+        } else if (getText(number) == "0") {
+            arr.add("0")
+            arr.add(getButtonText(button))
+            updateText(number,calculateService.makeArrayToStr(arr))
         }
-      feedBack.buttonVibration(context)
+
+        feedBack.buttonVibration(context)
     }
 
     /** Add text number to TextView number */
     fun addNumber(button : Button, number: TextView, result: ArrayList<String>, context: Context) {
         val buttonNumberStr = getButtonText(button)
 
-        if (number.text.toString() == "0") {
+        if (getText(number) == "0") {
             result.add(buttonNumberStr)
             updateText(number,calculateService.makeArrayToStr(result))
         } else {
@@ -77,10 +80,9 @@ open class UpdateUI : Activity() {
         if (result.size == 0 || calculateService.makeArrayToStr(result).contains("/ 0")) {
             feedBack.canNotDoThat(cacheNumber,"Error", context)
         } else {
-            calculateService.percent(calculateService.calculate(result))
+            updateText(number,calculateService.percent(calculateService.calculate(result)))
             result.clear()
-            result.add(calculateService.percent(getText(number)))
-
+            result.add(getText(number))
         }
     }
 
@@ -93,7 +95,7 @@ open class UpdateUI : Activity() {
             updateText(cacheNumber,getText(number) + "!")
             var resultFactorial: Int = 1
 
-            for (i in 1..number.text.toString().toInt()) {
+            for (i in 1..getText(number).toInt()) {
                 resultFactorial *= i
             }
 
@@ -110,15 +112,15 @@ open class UpdateUI : Activity() {
         } else {
             updateText(number, calculateService.calculate(result))
 
-            when(button.text.toString()) {
+            when(getButtonText(button)) {
                 "sin" -> cacheNumber.text = "sin(${getText(number)})"
                 "cos" -> cacheNumber.text = "cos(${getText(number)})"
                 "tan" -> cacheNumber.text = "tan(${getText(number)})"
             }
 
-            updateText(number,calculateService.functionIndecate(getText(number), button.text.toString()))
+            updateText(number,calculateService.functionIndecate(getText(number), getButtonText(button)))
             result.clear()
-            result.add(number.text.toString())
+            result.add(getText(number))
         }
     }
 
@@ -163,3 +165,4 @@ open class UpdateUI : Activity() {
         return button.text.toString()
     }
 }
+

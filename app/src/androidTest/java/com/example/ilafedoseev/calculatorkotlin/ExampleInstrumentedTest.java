@@ -3,15 +3,13 @@ package com.example.ilafedoseev.calculatorkotlin;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.widget.Button;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -20,7 +18,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-    private Calculate calculate = new Calculate();
+    private CalculateService calculate = new CalculateService();
 
     @Test
     public void useAppContext() throws Exception {
@@ -410,6 +408,14 @@ public class ExampleInstrumentedTest {
         ArrayList<String> arrayExample = new ArrayList<String>();
         arrayExample.add("10");
         arrayExample.add("+");
+        assertEquals("0.1", calculate.percent(calculate.calculate(arrayExample)));
+    }
+
+    @Test
+    public void halfTwoPercentTest() {
+        ArrayList<String> arrayExample = new ArrayList<String>();
+        arrayExample.add("10");
+        arrayExample.add("/");
         assertEquals("0.1", calculate.percent(calculate.calculate(arrayExample)));
     }
 
