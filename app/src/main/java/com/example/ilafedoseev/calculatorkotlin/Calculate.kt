@@ -127,7 +127,7 @@ class CalculateService {
             return roundNumber(number.toDouble()).toString()
         } else if (haveDot) {
             if (number % 1.0 == 0.0) {
-                return number.toString()
+                return number.toInt().toString();
             } else {
                 if (number.toString().length > 8) {
                     return roundNumber(number.toDouble()).toString()
